@@ -13,4 +13,6 @@ add_executable(OnlineJudge ${SRC_LIST})
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
+# 表示server这个目标程序，需要链接的库
+target_link_libraries(OnlineJudge pthread)
 
