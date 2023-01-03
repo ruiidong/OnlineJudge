@@ -1,17 +1,12 @@
 #include <iostream>
-#include "Thread.h"
+#include "EventLoopThread.h"
 
 using namespace std;
 
 int main()
 {
-    Thread thread(std::bind([](int a){
-        cout << "Hello World!!! " << a << endl;
-    },1),"Test");
-
-    thread.start();
-
-    thread.join();
+    EventLoopThread loop_(EventLoopThread::ThreadInitCallback(),"loop1");
+    loop_.startLoop();
 
     return 0;
 }
