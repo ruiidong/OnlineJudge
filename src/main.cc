@@ -1,12 +1,21 @@
 #include <iostream>
-#include "EventLoopThread.h"
+#include "EventLoop.h"
+#include "EventLoopThreadPool.h"
 
 using namespace std;
 
 int main()
 {
-    EventLoopThread loop_(EventLoopThread::ThreadInitCallback(),"loop1");
-    loop_.startLoop();
+    EventLoop loop;
+    cout << "baseLoop " << &loop << endl;
+    EventLoopThreadPool pool(&loop,"pool");
+    pool.setThreadNum(3);
+    cout << "subLoop" << endl;
+    pool.start();
+    for(int i = 0;i < 3;i++)
+    {
+        cout << pool.getNextLoop() << endl;        
+    }
 
     return 0;
 }
