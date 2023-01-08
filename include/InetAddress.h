@@ -8,7 +8,7 @@ using namespace std;
 class InetAddress
 {
 public:
-    InetAddress(string ip,uint16_t port);
+    InetAddress(string ip = "127.0.0.1",uint16_t port = 0);
     explicit InetAddress(const struct sockaddr_in& addr)
         : addr_(addr)
     {}
@@ -19,6 +19,7 @@ public:
     uint16_t port() const;
 
     const struct sockaddr* getSockAddr() const { return reinterpret_cast<const struct sockaddr*>(&addr_); }
+    void setSocketAddrInet(const sockaddr_in& addr) { addr_ = addr; }
 private:
     void toIpPort(char* buf,size_t size,const struct sockaddr* addr) const;
     void toIp(char* buf,size_t size,const struct sockaddr* addr) const;

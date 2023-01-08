@@ -1,21 +1,21 @@
 #include <iostream>
-#include "EventLoop.h"
-#include "EventLoopThreadPool.h"
+#include "Socket.h"
+#include "InetAddress.h"
 
 using namespace std;
 
 int main()
 {
-    EventLoop loop;
-    cout << "baseLoop " << &loop << endl;
-    EventLoopThreadPool pool(&loop,"pool");
-    pool.setThreadNum(3);
-    cout << "subLoop" << endl;
-    pool.start();
-    for(int i = 0;i < 3;i++)
+    InetAddress addr("127.0.0.1",6666);
+    Socket socket(::socket(AF_INET,SOCK_STREAM | SOCK_NONBLOCK | SOCK_CLOEXEC,0));
+    socket.bindAddress(addr);
+    socket.listen();
+    InetAddress peer;
+    int connfd = -1;
+    while((connfd = socket.accept(&peer))<0)
     {
-        cout << pool.getNextLoop() << endl;        
     }
+    cout << connfd << endl;
 
     return 0;
 }
