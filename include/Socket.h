@@ -16,6 +16,8 @@ public:
     void listen();
 
     int accept(InetAddress* peeraddr);
+
+    void setKeepAlive(bool on);
 private:
     const int sockfd_;
 };

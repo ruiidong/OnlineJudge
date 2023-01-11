@@ -48,3 +48,10 @@ int Socket::accept(InetAddress* peeraddr)
     }
     return connfd;
 }
+
+void Socket::setKeepAlive(bool on)
+{
+    int optval = on ? 1 : 0;
+    ::setsockopt(sockfd_, SOL_SOCKET, SO_KEEPALIVE,
+                &optval,sizeof optval);
+}
