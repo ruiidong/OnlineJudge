@@ -4,7 +4,7 @@
 #include "EventLoopThreadPool.h"
 #include "EventLoop.h"
 
-EventLoop* checkLoopNotNull(EventLoop* loop)
+EventLoop* checkLoopNotNullInTcpServer(EventLoop* loop)
 {
     if(loop == nullptr)
     {
@@ -14,7 +14,7 @@ EventLoop* checkLoopNotNull(EventLoop* loop)
 }
 
 TcpServer::TcpServer(EventLoop* loop,const InetAddress& listenAddr,const string& nameArg)
-    : loop_(checkLoopNotNull(loop))
+    : loop_(checkLoopNotNullInTcpServer(loop))
     , name_(nameArg)
     , acceptor_(new Acceptor(loop,listenAddr))
     , threadPool_(new EventLoopThreadPool(loop,name_))

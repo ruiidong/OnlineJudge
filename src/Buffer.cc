@@ -1,6 +1,7 @@
 #include "Buffer.h"
 
 #include <sys/uio.h>
+#include <unistd.h>
 
 ssize_t Buffer::readFd(int fd,int* savedErrno) //读取连接中的数据到缓冲区中
 {
@@ -29,4 +30,9 @@ ssize_t Buffer::readFd(int fd,int* savedErrno) //读取连接中的数据到缓�
     }
 
     return n;
+}
+
+ssize_t Buffer::writeFd(int fd)
+{
+    return ::write(fd,peek(),readableBytes());
 }

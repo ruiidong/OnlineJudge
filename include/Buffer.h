@@ -121,7 +121,7 @@ public:
     }
 
     ssize_t readFd(int fd,int* savedErrno); //读取连接缓冲区中的数据到缓冲区中
-
+    ssize_t writeFd(int fd);
 private:
     char* begin()   //返回缓冲区的起始地址
     {
