@@ -30,7 +30,8 @@ public:
     const InetAddress& peerAddress() const { return peerAddr_; }
     bool connected() const { return state_ == kConnected; }
     bool disconnected() const { return state_ == kDisconnected; }
-    void send(const void* message, int len);
+
+    void send(const string& buf);
     void shutdown();
 
     void setConnectionCallback(const ConnectionCallback& cb)

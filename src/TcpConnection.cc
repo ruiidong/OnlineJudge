@@ -136,3 +136,80 @@ void TcpConnection::shutdownInLoop()
 {
 
 }
+
+void TcpConnection::send(const string& buf)
+{
+    if(state_ == kConnected)
+    {
+        if(loop_->isInLoopThread())
+        {
+            sendInLoop(buf.c_str(),buf.size());
+        }
+        else
+        {
+            loop_->runInLoop(
+                std::bind(&TcpConnection::sendInLoop,
+                            this,
+                            buf.c_str(),
+                            buf.size())
+            );
+        }
+    }
+}
+
+void TcpConnection::sendInLoop(const void* data, size_t len)
+{
+    ssize_t nworte = 0;
+    size_t remaining = len;
+    bool faultError = false;
+    if(state_ == kDisconnected)
+    {
+        LOG_ERROR("disconnected, give up writing");
+        return;
+    }
+
+    if(!channel_->isWriting() && outputBuffer_.readableBytes() == 0)
+    {
+        nworte = ::write(channel_->fd(), data, len);
+        if(nworte >= 0)
+        {
+            remaining = len - nworte;
+            if(remaining == 0 && writeCompleteCallback_)
+            {
+                loop_->queueInLoop(std::bind(writeCompleteCallback_,shared_from_this()));
+            }
+        }
+        else
+        {
+            nworte = 0;
+            if(errno != EWOULDBLOCK)
+            {
+                LOG_ERROR("TcpConnection::sendInLoop");
+                if(errno == EPIPE || errno == ECONNRESET)
+                {
+                    faultError = true;
+                }
+            }
+        }
+    }
+
+    if(!faultError && remaining > 0)
+    {
+        size_t oldLen = outputBuffer_.readableBytes();
+        if(oldLen + remaining >= highWaterMark_
+            && oldLen < highWaterMark_
+            && highWaterMark_)
+        {
+            loop_->queueInLoop(std::bind(
+                highWaterMarkCallback_,
+                shared_from_this(),
+                oldLen + remaining
+            ));
+        }
+        outputBuffer_.append((char*)data+nworte,remaining);
+        if(!channel_->isWriting())
+        {
+            channel_->enableWriting();
+        }
+    }
+}
