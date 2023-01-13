@@ -132,11 +132,6 @@ void TcpConnection::handleError()
     LOG_ERROR("TcpConnection::handleError [%s] - SO_ERROR=%d",name_.c_str(),err);
 }
 
-void TcpConnection::shutdownInLoop()
-{
-
-}
-
 void TcpConnection::send(const string& buf)
 {
     if(state_ == kConnected)
@@ -211,5 +206,43 @@ void TcpConnection::sendInLoop(const void* data, size_t len)
         {
             channel_->enableWriting();
         }
+    }
+}
+
+void TcpConnection::connectEstablished()
+{
+    setState(kConnected);
+    channel_->tie(shared_from_this());
+    channel_->enableReading();
+
+    connectionCallback_(shared_from_this());
+}
+
+void TcpConnection::connectDestroyed()
+{
+    if(state_ == kConnected)
+    {
+        setState(kDisconnected);
+        channel_->disableAll();
+
+        connectionCallback_(shared_from_this());
+    }
+    channel_->remove();
+}
+
+void TcpConnection::shutdown()
+{
+    if(state_ == kConnected)
+    {
+        setState(kDisconnecting);
+        loop_->runInLoop(std::bind(&TcpConnection::shutdownInLoop, this));
+    }
+}
+
+void TcpConnection::shutdownInLoop()
+{
+    if(!channel_->isWriting())
+    {
+        socket_->shutdownWrite();           //调用此函数后，socket对应的Channel上就会发生EPOLLHUP事件
     }
 }

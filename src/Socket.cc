@@ -55,3 +55,11 @@ void Socket::setKeepAlive(bool on)
     ::setsockopt(sockfd_, SOL_SOCKET, SO_KEEPALIVE,
                 &optval,sizeof optval);
 }
+
+void Socket::shutdownWrite()
+{
+    if(::shutdown(sockfd_, SHUT_WR) < 0)
+    {
+        LOG_ERROR("Socket::shutdownWrite");
+    }
+}

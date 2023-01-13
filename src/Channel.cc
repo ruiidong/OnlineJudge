@@ -1,10 +1,10 @@
 #include "Channel.h"
 #include "EventLoop.h"
-#include <poll.h>
+#include <sys/epoll.h>
 
 const int Channel::kNoneEvent = 0;
-const int Channel::kReadEvent = POLLIN | POLLPRI;
-const int Channel::kWriteEvent = POLLOUT;
+const int Channel::kReadEvent = EPOLLIN | EPOLLPRI;
+const int Channel::kWriteEvent = EPOLLOUT;
 
 Channel::Channel(EventLoop* loop,int fd)
     : loop_(loop)
@@ -60,7 +60,7 @@ void Channel::handleEvent(Timestamp receiveTime)
 void Channel::handleEventWithGuard(Timestamp receiveTime)
 {
     eventHandling_ = true;
-    if((revents_ & POLLHUP) && !(revents_ & POLLIN))
+    if((revents_ & EPOLLHUP) && !(revents_ & EPOLLIN))
     {
         if(closeCallback_)
         {
@@ -68,7 +68,7 @@ void Channel::handleEventWithGuard(Timestamp receiveTime)
         }
     }
 
-    if(revents_ & (POLLERR | POLLNVAL))
+    if(revents_ & EPOLLERR)
     {
         if(errorCallback_)
         {
@@ -76,7 +76,7 @@ void Channel::handleEventWithGuard(Timestamp receiveTime)
         }
     }
 
-    if(revents_ & (POLLIN | POLLPRI | POLLRDHUP))
+    if(revents_ & (EPOLLIN | EPOLLPRI | EPOLLRDHUP))
     {
         if(readCallback_)
         {
@@ -84,7 +84,7 @@ void Channel::handleEventWithGuard(Timestamp receiveTime)
         }
     }
 
-    if(revents_ & POLLOUT)
+    if(revents_ & EPOLLOUT)
     {
         if(writeCallback_)
         {

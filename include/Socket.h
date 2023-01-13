@@ -17,6 +17,8 @@ public:
 
     int accept(InetAddress* peeraddr);
 
+    void shutdownWrite();
+
     void setKeepAlive(bool on);
 private:
     const int sockfd_;
