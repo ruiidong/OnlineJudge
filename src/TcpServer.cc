@@ -8,6 +8,17 @@
 
 #include <string.h>
 
+void defaultConnectionCallback(const TcpConnectionPtr& conn)
+{
+    LOG_INFO("%s -> %s is %s",conn->localAddress().toIpPort().c_str(),conn->peerAddress().toIpPort().c_str(),
+                (conn->connected() ? "UP" : "DOWN"));
+}
+
+void defaultMessageCallback(const TcpConnectionPtr&, Buffer* buf, Timestamp)
+{
+    buf->retrieveAll();
+}
+
 EventLoop* checkLoopNotNullInTcpServer(EventLoop* loop)
 {
     if(loop == nullptr)
@@ -23,8 +34,8 @@ TcpServer::TcpServer(EventLoop* loop,const InetAddress& listenAddr,const string&
     , name_(nameArg)
     , acceptor_(new Acceptor(loop,listenAddr))
     , threadPool_(new EventLoopThreadPool(loop,name_))
-    , connectionCallback_()
-    , messageCallback_()
+    , connectionCallback_(defaultConnectionCallback)
+    , messageCallback_(defaultMessageCallback)
     , nextConnId_(1)
 {
     acceptor_->setNewConnectionCallback(
