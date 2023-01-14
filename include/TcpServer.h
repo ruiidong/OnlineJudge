@@ -48,6 +48,7 @@ private:
     using ConnectionMap = std::unordered_map<string,TcpConnectionPtr>;
 
     EventLoop* loop_;
+    const string ipPort_;
     const string name_;
     std::unique_ptr<Acceptor> acceptor_;
     std::shared_ptr<EventLoopThreadPool> threadPool_;
