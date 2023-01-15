@@ -37,10 +37,25 @@ TcpServer::TcpServer(EventLoop* loop,const InetAddress& listenAddr,const string&
     , connectionCallback_(defaultConnectionCallback)
     , messageCallback_(defaultMessageCallback)
     , nextConnId_(1)
+    , started_(0)
 {
     acceptor_->setNewConnectionCallback(
         std::bind(&TcpServer::newConnection,this,std::placeholders::_1,std::placeholders::_2)
     );
+}
+
+TcpServer::~TcpServer()
+{
+    LOG_INFO("TcpServer::TcpServer [%s] destructing",name_.c_str());
+
+    for(auto& item : connections_)
+    {
+        TcpConnectionPtr conn(item.second);
+        item.second.reset();
+        conn->getLoop()->runInLoop(
+            std::bind(&TcpConnection::connectDestroyed,conn)
+        );
+    }
 }
 
 void TcpServer::setThreadNum(int numThreads)
@@ -52,6 +67,8 @@ void TcpServer::start()
 {
     if(started_++ == 0)
     {
+        threadPool_->start(threadInitCallback_);
+
         loop_->runInLoop(
             std::bind(&Acceptor::listen,acceptor_.get())
         );

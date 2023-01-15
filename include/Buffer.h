@@ -120,6 +120,18 @@ public:
         std::copy(d,d+len,begin()+readerIndex_);
     }
 
+    string retrieveAllAsString()
+    {
+        return retrieveAsString(readableBytes());
+    }
+
+    string retrieveAsString(size_t len)
+    {
+        string result(peek(),len);
+        retrieve(len);
+        return result;
+    }
+
     ssize_t readFd(int fd,int* savedErrno); //读取连接缓冲区中的数据到缓冲区中
     ssize_t writeFd(int fd);
 private:
