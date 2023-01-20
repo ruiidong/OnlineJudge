@@ -4,6 +4,7 @@
 #include "Callbacks.h"
 #include "Buffer.h"
 #include "Timestamp.h"
+#include "HttpContext.h"
 
 #include <string>
 #include <atomic>
@@ -32,6 +33,7 @@ public:
     bool disconnected() const { return state_ == kDisconnected; }
 
     void send(const string& buf);
+    void send(Buffer* buf);
     void shutdown();
 
     void setConnectionCallback(const ConnectionCallback& cb)
@@ -48,6 +50,11 @@ public:
 
     void setCloseCallback(const CloseCallback& cb)
     { closeCallback_ = cb; }
+
+    HttpContext* getContext()
+    {
+        return &context_;
+    }
 
     void connectEstablished();
     void connectDestroyed();
@@ -80,4 +87,5 @@ private:
     size_t highWaterMark_;
     Buffer inputBuffer_;
     Buffer outputBuffer_;
+    HttpContext context_;
 };

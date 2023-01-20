@@ -30,6 +30,12 @@ public:
     {
     }
 
+    const char* findCRLF() const
+    {
+        const char* crlf = std::search(peek(), beginWrite(), kCRLF, kCRLF+2);
+        return crlf == beginWrite() ? nullptr : crlf;
+    }
+
     size_t readableBytes() const    //返回可读数据大小
     {
         return writerIndex_ - readerIndex_;
@@ -166,4 +172,6 @@ private:
     std::vector<char> buffer_;  //可扩容的缓冲区
     size_t readerIndex_;
     size_t writerIndex_;
+
+    static const char kCRLF[];
 };

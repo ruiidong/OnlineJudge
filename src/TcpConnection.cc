@@ -152,6 +152,29 @@ void TcpConnection::send(const string& buf)
     }
 }
 
+void TcpConnection::send(Buffer* buf)
+{
+    if(state_ == kConnected)
+    {
+        if(loop_->isInLoopThread())
+        {
+            sendInLoop(buf->peek(), buf->readableBytes());
+            buf->retrieveAll();
+        }
+        else
+        {
+            string message = buf->retrieveAllAsString();
+            loop_->runInLoop(
+                std::bind(&TcpConnection::sendInLoop,
+                            this,
+                            message.c_str(),
+                            message.size())
+            );
+        }
+    }
+}
+
+
 void TcpConnection::sendInLoop(const void* data, size_t len)
 {
     ssize_t nworte = 0;

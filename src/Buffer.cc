@@ -3,6 +3,11 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
+const char Buffer::kCRLF[] = "\r\n";
+
+const size_t Buffer::kCheapPrepend;
+const size_t Buffer::kInitialSize;
+
 ssize_t Buffer::readFd(int fd,int* savedErrno) //读取连接中的数据到缓冲区中
 {
     char extrabuf[65536];

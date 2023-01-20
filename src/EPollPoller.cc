@@ -26,7 +26,7 @@ EPollPoller::~EPollPoller()
 
 Timestamp EPollPoller::poll(int timeoutMs,ChannelList* activeChannels)
 {
-    LOG_INFO("fd total count %lu",channels_.size());
+    //LOG_INFO("fd total count %lu",channels_.size());
     int numEvents = ::epoll_wait(epollfd_,
                                  &*events_.begin(),
                                  static_cast<int>(events_.size()),
