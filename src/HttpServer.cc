@@ -2,6 +2,7 @@
 #include "HttpRequest.h"
 #include "HttpResponse.h"
 #include "TcpConnection.h"
+#include "FileUtil.h"
 
 void defaultHttpCallback(const HttpRequest&, HttpResponse* resp)
 {
@@ -54,13 +55,39 @@ void HttpServer::onRequest(const TcpConnectionPtr& conn, const HttpRequest& req)
 {
     const string& connection = req.getHeader("Connection");
     bool close = connection=="close" || (req.getVersion()==HttpRequest::kHttp10 && connection!="Keep-Alive");
+    
     HttpResponse response(close);
+    handleFileRequest(req, &response);
     httpCallback_(req, &response);
+    
     Buffer buf;
     response.appendToBuffer(&buf);
     conn->send(&buf);
     if(response.closeConnection())
     {
         conn->shutdown();
+    }
+}
+
+void HttpServer::handleFileRequest(const HttpRequest& req,HttpResponse* resp)
+{
+    string path = baseDir_ + req.path();
+    if(req.path() == "/")
+    {
+        path += "index.html";
+    }
+    printf("%s\n",path.c_str());
+    if(FileUtil::isFile(path))
+    {
+        string data;
+        FileUtil::readFile(path, data);        
+        resp->setBody(data);
+        auto type = FileUtil::findContentType(path);
+        if(type)
+        {
+            resp->setContentType(type);
+        }
+        resp->setStatusCode(HttpResponse::k200Ok);
+        resp->setStatusMessage("OK");
     }
 }

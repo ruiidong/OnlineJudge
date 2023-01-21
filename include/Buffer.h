@@ -36,6 +36,12 @@ public:
         return crlf == beginWrite() ? nullptr : crlf;
     }
 
+    const char* findAND() const
+    {
+        const char* ands = std::search(peek(), beginWrite(), kAND, kAND+1);
+        return ands == beginWrite() ? nullptr : ands;
+    }
+
     size_t readableBytes() const    //返回可读数据大小
     {
         return writerIndex_ - readerIndex_;
@@ -174,4 +180,5 @@ private:
     size_t writerIndex_;
 
     static const char kCRLF[];
+    static const char kAND[];
 };

@@ -128,6 +128,13 @@ public:
         }
         headers_[field] = value;
     }
+    void addData(const char* start, const char* equal, const char* ands)
+    {
+        string field(start, equal);
+        ++equal;
+        string value(equal, ands);
+        datas_[field] = value;
+    }
     string getHeader(const string& field) const
     {
         string result;
@@ -158,4 +165,5 @@ private:
     string query_;
     Timestamp receiveTime_;
     std::unordered_map<string, string> headers_;
+    std::unordered_map<string, string> datas_;
 };

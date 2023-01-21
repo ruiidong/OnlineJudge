@@ -22,12 +22,19 @@ public:
     {
         server_.setThreadNum(numThreads);
     }
+    void setBaseDir(const string& dir)
+    {
+        baseDir_ = dir;
+    }
     void start();
 private:
+    void handleFileRequest(const HttpRequest&,HttpResponse*);
+
     void onConnection(const TcpConnectionPtr& conn);
     void onMessage(const TcpConnectionPtr& conn, Buffer* buf, Timestamp receiveTime);
     void onRequest(const TcpConnectionPtr&, const HttpRequest&);
 
+    string baseDir_;
     TcpServer server_;
     HttpCallback httpCallback_;
 };

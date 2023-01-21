@@ -41,8 +41,15 @@ bool HttpContext::parseRequest(Buffer* buf, Timestamp receiveTime)
                 }
                 else
                 {
-                    state_ = kGotAll;
-                    hasMore = false;
+                    if(request_.method()==HttpRequest::kGet)
+                    {
+                        state_ = kGotAll;
+                        hasMore = false;
+                    }
+                    else if(request_.method()==HttpRequest::kPost)
+                    {
+                        state_ = kExpectBody;
+                    }
                 }
                 buf->retrieveUntil(crlf + 2);
             }
@@ -54,6 +61,27 @@ bool HttpContext::parseRequest(Buffer* buf, Timestamp receiveTime)
         else if(state_ == kExpectBody)
         {
             // FIXME:
+            int value = stoi(request_.getHeader("Content-Length"));
+            while(value > 0)
+            {
+                const char* ands = buf->findAND();
+                if(ands)
+                {
+                    const char* equal = std::find(buf->peek(), ands, '=');
+                    request_.addData(buf->peek(), equal, ands);
+                    value -= (ands - buf->peek() + 1);
+                    buf->retrieveUntil(ands+1);
+                }
+                else
+                {
+                    const char* equal = std::find(buf->peek(), buf->peek()+value, '=');
+                    request_.addData(buf->peek(), equal, buf->peek()+value);
+                    buf->retrieve(value);
+                    value = 0;
+                }
+            }
+            state_ = kGotAll;
+            hasMore = false;
         }
     }
     return ok;
