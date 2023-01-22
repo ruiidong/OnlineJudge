@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Ren Baoshuo">
+    <meta name="generator" content="HUSTOJ">
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Title -->
+    <title>登录 - demo</title>
+
+    <!-- MDUI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
+    <script>
+        var $ = mdui.$;
+    </script>
+    <style>
+        @media (min-width: 840px) {
+            .mdui-container {
+                padding-top: 80px;
+            }
+        }
+
+        @media (min-width: 480px) {
+            .mdui-container {
+                padding-top: 60px;
+            }
+        }
+
+        .mdui-container {
+            padding-top: 40px;
+            padding-bottom: 60px;
+            position: relative;
+        }
+
+        .mdui-select-menu {
+            min-height: 300px !important;
+        }
+    </style>
+
+    <!-- Fonts -->
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        as="style" onload="this.onload=null, this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+    </noscript>
+
+    <!-- Styles -->
+    <style>
+        code {
+            font-family: 'Roboto Mono', 'Consolas', monospace !important;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Roboto', 'Noto', 'Helvetica', 'Arial', sans-serif !important;
+        }
+    </style>
+
+    <!-- KaTeX -->
+    <script> var katex_options = { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }, { left: '\\(', right: '\\)', display: false }, { left: '\\[', right: '\\]', display: true }] }; </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" as="style"
+        onload="this.onload=null, this.rel='stylesheet'">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, katex_options);"></script>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/styles/atom-one-light.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/highlight.min.js"
+        onload="hljs.initHighlightingOnLoad();"></script>
+    <!-- Pascal -->
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/languages/delphi.min.js"></script>
+</head>
+
+<body class="mdui-drawer-body-left mdui-theme-primary-indigo mdui-theme-accent-indigo mdui-appbar-with-toolbar">
+    <header class="mdui-appbar mdui-appbar-fixed" style="z-index: 999;">
+        <div class="mdui-toolbar mdui-color-theme">
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '菜单'}"
+                mdui-drawer="{target: '#main-drawer', swipe: true}">
+                <i class="mdui-icon material-icons">menu</i>
+            </a>
+            <a class="mdui-typo-title" href="./">demo</a>
+            <div class="mdui-toolbar-spacer"></div>
+            <div class="mdui-btn" mdui-tooltip="{content: '账户'}"
+                mdui-menu="{target: '#account-menu', position: 'bottom', fixed: true}">
+                <i class="mdui-icon material-icons">account_circle</i>
+                请登录
+            </div>
+            <ul class="mdui-menu mdui-menu-cascade" id="account-menu">
+                <li class="mdui-menu-item">
+                    <a href="loginpage.html" class="mdui-ripple">登录</a>
+                </li>
+                <li class="mdui-menu-item">
+                    <a href="registerpage.php" class="mdui-ripple">注册</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="mdui-drawer" id="main-drawer">
+        <div class="mdui-list mdui-m-t-1 mdui-color-white">
+            <!-- Menu -->
+            <a class="mdui-list-item mdui-ripple " href="index.html">
+                <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+                <div class="mdui-list-item-content">首页</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="problemset.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">book</i>
+                <div class="mdui-list-item-content">题目</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="category.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">apps</i>
+                <div class="mdui-list-item-content">分类</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="status.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">play_circle_outline</i>
+                <div class="mdui-list-item-content">状态</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="ranklist.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">equalizer</i>
+                <div class="mdui-list-item-content">排名</div>
+            </a>
+            <div class="mdui-divider"></div>
+
+            <!-- User -->
+            <a class="mdui-list-item mdui-ripple mdui-list-item-active" href="loginpage.html">
+                <i class="mdui-list-item-icon mdui-icon material-icons">assignment_ind</i>
+                <div class="mdui-list-item-content">登录</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="registerpage.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">person_add</i>
+                <div class="mdui-list-item-content">注册</div>
+            </a>
+
+        </div>
+    </div>
+    <div class="mdui-container">
+        <div class="mdui-row" style="display: flex; justify-content: center;">
+            <div class="mdui-card mdui-col-sm-6" style="text-align: left;">
+                <div class="mdui-card-primary">
+                    <div class="mdui-card-primary-title" style="text-align: center">登录</div>
+                    <!-- <div class="mdui-card-primary-subtitle"></div> -->
+                </div>
+                <form id="login" action="javascript:void(0)" method="post" role="form" class="mdui-m-a-2 mdui-card-content">
+                    <div style="position: relative;">
+                        <a class="mdui-btn mdui-btn-icon" style="display: inline-block; top: 40px; position: absolute;">
+                            <i class="mdui-icon material-icons">account_circle</i>
+                        </a>
+                        <div class="mdui-textfield mdui-textfield-floating-label"
+                            style="width: calc(100% - 50px); display: inline-block; margin-left: 45px;">
+                            <label class="mdui-textfield-label">用户名</label>
+                            <input class="mdui-textfield-input" id="user_id" name="user_id" type="text" required />
+                            <div class="mdui-textfield-error">请输入用户名</div>
+                        </div>
+                    </div>
+                    <div style="position: relative;">
+                        <a class="mdui-btn mdui-btn-icon" style="display: inline-block; top: 40px; position: absolute;">
+                            <i class="mdui-icon material-icons">vpn_key</i>
+                        </a>
+                        <div class="mdui-textfield mdui-textfield-floating-label"
+                            style="width: calc(100% - 50px); display: inline-block; margin-left: 45px;">
+                            <label class="mdui-textfield-label">密码</label>
+                            <input class="mdui-textfield-input" id="password" name="password" type="password" autocomplete="off"
+                                required />
+                            <div class="mdui-textfield-error">请输入密码</div>
+                        </div>
+                    </div>
+                    <div class="mdui-card-actions mdui-m-t-4">
+                        <div class="mdui-float-right">
+                            <button name="submit" type="submit"
+                                class="mdui-btn mdui-m-a-0 mdui-color-theme-accent" value="Login" onclick="Login()">登录</button>
+                        </div>
+                        <div class="mdui-float-left">
+                            <a class="mdui-btn mdui-color-red" href="lostpassword.php">忘记密码</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function Login() {
+            $.ajax({
+                url: "/login.html",
+                type:"POST",
+                data: {
+                    user_id: $("#user_id").val(),
+                    password: $("#password").val()
+                },
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                async:false,
+                withCredentials: true,            // 这里设置了withCredentials
+                crossDomain: true,
+                success: function (data) {
+                    var ret =  JSON.parse(data)
+                    if (ret.code == 1) {
+                        alert(ret.message);
+                        var newurl = "/user.html?user_id=" + $("#user_id").val();
+                        window.location.assign(newurl);
+                    }
+                    else {
+                        alert(ret.message);
+                    }
+                },
+                error: function (data) {  
+                    alert("Connection error");
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html><!--not cached-->

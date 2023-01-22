@@ -128,6 +128,22 @@ public:
         }
         headers_[field] = value;
     }
+    void setRemoteAddr(const string& ip)
+    {
+        ip_ = ip;
+    }
+    string getRemoteAddr()
+    {
+        return ip_;
+    }
+    void setCookie(const string& cookie)
+    {
+        cookie_ = cookie;
+    }
+    string getCookie()
+    {
+        return cookie_; 
+    }
     void addData(const char* start, const char* equal, const char* ands)
     {
         string field(start, equal);
@@ -140,6 +156,16 @@ public:
         string result;
         auto it = headers_.find(field);
         if(it != headers_.end())
+        {
+            result = it->second;
+        }
+        return result;
+    }
+    string getData(const string& field) const
+    {
+        string result;
+        auto it = datas_.find(field);
+        if(it != datas_.end())
         {
             result = it->second;
         }
@@ -166,4 +192,6 @@ private:
     Timestamp receiveTime_;
     std::unordered_map<string, string> headers_;
     std::unordered_map<string, string> datas_;
+    string ip_;
+    string cookie_;
 };

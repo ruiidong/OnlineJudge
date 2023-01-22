@@ -1,52 +1,248 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="cn">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Ren Baoshuo">
+    <meta name="generator" content="HUSTOJ">
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Title -->
     <title>OnlineJudge</title>
 
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- MDUI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
+    <script>
+        var $ = mdui.$;
+    </script>
+    <style>
+        @media (min-width: 840px) {
+            .mdui-container {
+                padding-top: 80px;
+            }
+        }
 
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        @media (min-width: 480px) {
+            .mdui-container {
+                padding-top: 60px;
+            }
+        }
+
+        .mdui-container {
+            padding-top: 40px;
+            padding-bottom: 60px;
+            position: relative;
+        }
+
+        .mdui-select-menu {
+            min-height: 300px !important;
+        }
+    </style>
+
+    <!-- Fonts -->
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        as="style" onload="this.onload=null, this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+    </noscript>
+
+    <!-- Styles -->
+    <style>
+        code {
+            font-family: 'Roboto Mono', 'Consolas', monospace !important;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Roboto', 'Noto', 'Helvetica', 'Arial', sans-serif !important;
+        }
+    </style>
+
+    <!-- KaTeX -->
+    <script> var katex_options = { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }, { left: '\\(', right: '\\)', display: false }, { left: '\\[', right: '\\]', display: true }] }; </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" as="style"
+        onload="this.onload=null, this.rel='stylesheet'">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, katex_options);"></script>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/styles/atom-one-light.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/highlight.min.js"
+        onload="hljs.initHighlightingOnLoad();"></script>
+    <!-- Pascal -->
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/languages/delphi.min.js"></script>
 </head>
-<body>
 
-    <div class="container">
-
-      <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">OnlineJudge</a>
+<body class="mdui-drawer-body-left mdui-theme-primary-indigo mdui-theme-accent-indigo mdui-appbar-with-toolbar">
+    <header class="mdui-appbar mdui-appbar-fixed" style="z-index: 999;">
+        <div class="mdui-toolbar mdui-color-theme">
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '菜单'}"
+                mdui-drawer="{target: '#main-drawer', swipe: true}">
+                <i class="mdui-icon material-icons">menu</i>
+            </a>
+            <a class="mdui-typo-title" href="./">demo</a>
+            <div class="mdui-toolbar-spacer"></div>
+            <div class="mdui-btn" mdui-tooltip="{content: '账户'}"
+                mdui-menu="{target: '#account-menu', position: 'bottom', fixed: true}">
+                <i class="mdui-icon material-icons">account_circle</i>
+                请登录
+            </div>
+            <ul class="mdui-menu mdui-menu-cascade" id="account-menu">
+                <li class="mdui-menu-item">
+                    <a href="loginpage.html" class="mdui-ripple">登录</a>
+                </li>
+                <li class="mdui-menu-item">
+                    <a href="registerpage.php" class="mdui-ripple">注册</a>
+                </li>
+            </ul>
         </div>
-        <div>
-            
-          <ul class="nav navbar-nav">
-                <li class="active"><a href="#">问题</a></li>
-                <li><a href="#">排名</a></li>
-                <li><a href="#">推荐题单</a></li>
-          </ul>
+    </header>
+    <div class="mdui-drawer" id="main-drawer">
+        <div class="mdui-list mdui-m-t-1 mdui-color-white">
+            <!-- Menu -->
+            <a class="mdui-list-item mdui-ripple mdui-list-item-active" href="index.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+                <div class="mdui-list-item-content">首页</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="problemset.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">book</i>
+                <div class="mdui-list-item-content">题目</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="category.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">apps</i>
+                <div class="mdui-list-item-content">分类</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="status.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">play_circle_outline</i>
+                <div class="mdui-list-item-content">状态</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="ranklist.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">equalizer</i>
+                <div class="mdui-list-item-content">排名</div>
+            </a>
+            <div class="mdui-divider"></div>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  登录
-                  <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                  <li><a href="login.html">登录</a></li>
-                  <li><a href="#">注册</a></li>
-              </ul>
-            </li>
-          </ul>
+            <!-- User -->
+            <a class="mdui-list-item mdui-ripple " href="loginpage.html">
+                <i class="mdui-list-item-icon mdui-icon material-icons">assignment_ind</i>
+                <div class="mdui-list-item-content">登录</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="registerpage.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">person_add</i>
+                <div class="mdui-list-item-content">注册</div>
+            </a>
 
         </div>
-        </div>
-    </nav>
-
-
     </div>
-    
+    <div class="mdui-container">
+        <!-- News List -->
+        <div class="mdui-panel" mdui-panel>
+            <h1>公告</h1>
+            <div class="mdui-panel-item">
+                <div class="mdui-panel-item-header">
+                    <div class="mdui-panel-item-title">HelloWorld!</div>
+                    <div class="mdui-panel-item-summary">2022-12-17 20:21:42</div><i
+                        class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+                </div>
+            </div>
+        </div>
+        <!-- User rank -->
+        <h1>排名</h1>
+        <div class="mdui-table-fluid">
+            <table class="mdui-table">
+                <thead>
+                    <th>#</th>
+                    <th>用户名</th>
+                    <th>个性签名</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><a href="userinfo.php?user=zhblue" class="mdui-text-color-theme-accent">zhblue</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><a href="userinfo.php?user=guest" class="mdui-text-color-theme-accent">guest</a></td>
+                        <td>炸谷职校</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><a href="userinfo.php?user=yemaster" class="mdui-text-color-theme-accent">yemaster</a></td>
+                        <td>有意向开发的邮箱联系哦</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><a href="userinfo.php?user=lsy" class="mdui-text-color-theme-accent">lsy</a></td>
+                        <td>lsylsy</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><a href="userinfo.php?user=lujiayi" class="mdui-text-color-theme-accent">lujiayi</a></td>
+                        <td>育才小学</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><a href="userinfo.php?user=killer" class="mdui-text-color-theme-accent">killer</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><a href="userinfo.php?user=senyuan" class="mdui-text-color-theme-accent">senyuan</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><a href="userinfo.php?user=fermin" class="mdui-text-color-theme-accent">fermin</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><a href="userinfo.php?user=qincy" class="mdui-text-color-theme-accent">qincy</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td><a href="userinfo.php?user=123" class="mdui-text-color-theme-accent">123</a></td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="userinfo.php?user=lmm" class="mdui-text-color-theme-accent">lmm</a></td>
+                        <td>xipu</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td><a href="userinfo.php?user=p041911070" class="mdui-text-color-theme-accent">p041911070</a>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td><a href="userinfo.php?user=tatbtc" class="mdui-text-color-theme-accent">tatbtc</a></td>
+                        <td>lalalala</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td><a href="userinfo.php?user=stephenmjm" class="mdui-text-color-theme-accent">stephenmjm</a>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td><a href="userinfo.php?user=giant" class="mdui-text-color-theme-accent">giant</a></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
+
 </html>

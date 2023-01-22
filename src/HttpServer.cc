@@ -46,7 +46,10 @@ void HttpServer::onMessage(const TcpConnectionPtr& conn, Buffer* buf, Timestamp 
 
     if(context->gotAll())
     {
-        onRequest(conn, context->request());
+        HttpRequest& req = context->request();
+        req.setRemoteAddr(conn->peerAddress().toIp());
+        
+        onRequest(conn, req);
         context->reset();
     }
 }
@@ -55,7 +58,7 @@ void HttpServer::onRequest(const TcpConnectionPtr& conn, const HttpRequest& req)
 {
     const string& connection = req.getHeader("Connection");
     bool close = connection=="close" || (req.getVersion()==HttpRequest::kHttp10 && connection!="Keep-Alive");
-    
+
     HttpResponse response(close);
     handleFileRequest(req, &response);
     httpCallback_(req, &response);
@@ -76,7 +79,7 @@ void HttpServer::handleFileRequest(const HttpRequest& req,HttpResponse* resp)
     {
         path += "index.html";
     }
-    printf("%s\n",path.c_str());
+    
     if(FileUtil::isFile(path))
     {
         string data;

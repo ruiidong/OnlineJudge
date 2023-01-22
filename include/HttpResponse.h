@@ -14,6 +14,7 @@ public:
         kUnknown,
         k200Ok = 200,
         k301MovedPermanently = 301,
+        k302MovedTemporarily = 302,
         k400BadRequest = 400,
         k404NotFound = 404,
     };
@@ -38,10 +39,6 @@ public:
     {
         return closeConnection_;
     }
-    void setContentType(const string& contentType)
-    {
-        addHeader("Content-Type",contentType);
-    }
     void addHeader(const string& key, const string& value)
     {
         headers_[key] = value;
@@ -51,6 +48,15 @@ public:
         body_ = body;
     }
     void appendToBuffer(Buffer* output) const;
+
+    void setContentType(const string& contentType)
+    {
+        addHeader("Content-Type",contentType);
+    }
+    void setRedirect(const string& url)
+    {
+        addHeader("Location", url);
+    }
 private:
     std::unordered_map<string, string> headers_;
     HttpStatusCode statusCode_;

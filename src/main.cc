@@ -4,10 +4,70 @@
 #include "HttpResponse.h"
 #include "InetAddress.h"
 #include "Logging.h"
+#include "json/json.h"
+#include "Render.h"
+#include "Users.h"
+
+Users users;
 
 void onRequest(const HttpRequest& req, HttpResponse* resp)
 {
-//     //LOG_INFO("---------------------\n%s %s\n-------------------------",req.methodString(),req.path().c_str());
+    if (req.path() == "/login.html")
+    {
+        string user_id = req.getData("user_id");
+        string password = req.getData("password");
+        // LOG_INFO("---------------------");
+        // LOG_INFO("%s %s",user_id.c_str(),password.c_str());
+        // LOG_INFO("---------------------");
+        Json::Value datas;
+        datas["code"] = 1;
+        if(user_id=="admin" && password=="admin")
+        {
+            datas["message"] = "登录成功";
+            users.add(user_id, password);
+        }
+        else
+        {
+            datas["code"] = 0;
+            datas["message"] = "用户名或密码错误";
+        }
+        resp->setStatusCode(HttpResponse::k200Ok);
+        resp->setStatusMessage("OK");
+        resp->setContentType("text/html");
+        resp->addHeader("Server", "Muduo");
+        resp->setBody(datas.toStyledString());
+    }
+    else if(req.path()=="/logout.html" && req.query()=="?user_id=admin")
+    {
+        users.earse("admin");
+
+        resp->setStatusCode(HttpResponse::k302MovedTemporarily);
+        resp->setStatusMessage("OK");
+        resp->setRedirect("/");
+        resp->setContentType("text/html");
+        resp->addHeader("Server", "Muduo"); 
+    }
+    else if(req.path()=="/user.html" && req.query()=="?user_id=admin")
+    {
+        if(!users.find("admin"))
+        {
+            resp->setStatusCode(HttpResponse::k302MovedTemporarily);
+            resp->setStatusMessage("OK");
+            resp->setRedirect("/");
+            resp->setContentType("text/html");
+            resp->addHeader("Server", "Muduo");
+
+            return;
+        }
+
+        string html;
+        Render::RenderUser(html);
+        resp->setStatusCode(HttpResponse::k200Ok);
+        resp->setStatusMessage("OK");
+        resp->setContentType("text/html");
+        resp->addHeader("Server", "Muduo");
+        resp->setBody(html);
+    }
 //     if (req.method() == HttpRequest::kGet && req.path() == "/")
 //     {
 //         resp->setStatusCode(HttpResponse::k200Ok);
@@ -15,9 +75,6 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
 //         resp->setContentType("text/html");
 //         resp->addHeader("Server", "Muduo");
 //         string now = "2023/1/19";
-//         // resp->setBody("<html><head><title>This is title</title></head>"
-//         //     "<body><h1>Hello</h1>Now is " + now +
-//         //     "</body></html>");
 //         resp->setBody(R"(
 // <html lang="en">
 // <head>
@@ -37,29 +94,6 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
 
 //         <button type="submit">登录</button>
 //     </form>
-    
-
-// </body>
-// </html>
-//         )");
-//     }
-//     else if(req.method() == HttpRequest::kPost && req.path() == "/login.html")
-//     {
-//         resp->setStatusCode(HttpResponse::k200Ok);
-//         resp->setStatusMessage("OK");
-//         resp->setContentType("text/html");
-//         resp->addHeader("Server", "Muduo");
-//         resp->setBody(R"(
-// <html lang="en">
-// <head>
-//     <meta charset="UTF-8">
-//     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <title>Document</title>
-// </head>
-// <body>
-    
-// login success
     
 
 // </body>
