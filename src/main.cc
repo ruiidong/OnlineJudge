@@ -1,12 +1,13 @@
-#include "HttpServer.h"
-#include "EventLoop.h"
-#include "HttpRequest.h"
-#include "HttpResponse.h"
-#include "InetAddress.h"
-#include "Logging.h"
+#include "tinymuduo/net/HttpServer.h"
+#include "tinymuduo/net/EventLoop.h"
+#include "tinymuduo/net/HttpRequest.h"
+#include "tinymuduo/net/HttpResponse.h"
+#include "tinymuduo/net/InetAddress.h"
+#include "tinymuduo/base/Logging.h"
 #include "json/json.h"
 #include "Render.h"
 #include "Users.h"
+#include "db/db.h"
 
 Users users;
 
@@ -104,6 +105,10 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
 
 int main()
 {
+    {
+        MySql mysql;
+    }
+    
     EventLoop loop;
     InetAddress addr("192.168.230.152",8000);
     HttpServer server(&loop,addr,"dummy");

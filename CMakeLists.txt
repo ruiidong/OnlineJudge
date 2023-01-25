@@ -10,11 +10,14 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 link_directories(./lib)
 
 aux_source_directory(./src SRC_LIST)
+aux_source_directory(./src/db DB_LIST)
+aux_source_directory(./src/tinymuduo/base TINYMUDUO_LIST)
+aux_source_directory(./src/tinymuduo/net TINYMUDUO_LIST)
 
-add_executable(OnlineJudge ${SRC_LIST})
+add_executable(OnlineJudge ${SRC_LIST} ${DB_LIST} ${TINYMUDUO_LIST} ${TINYMUDUO_LIST})
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 # 表示server这个目标程序，需要链接的库
-target_link_libraries(OnlineJudge pthread jsoncpp ctemplate)
+target_link_libraries(OnlineJudge pthread jsoncpp ctemplate mysqlclient)
 
