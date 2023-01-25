@@ -12,7 +12,7 @@ namespace Render
     void RenderUser(string& html)
     {
         ctemplate::TemplateDictionary dict("user");
-        dict.SetValue("user_id","admin");
+        dict.SetValue("username","admin");
         ctemplate::Template* tpl;
         tpl = ctemplate::Template::GetTemplate(TEMPLATEBASE + "user.html", ctemplate::DO_NOT_STRIP);
         tpl->Expand(&html,&dict);

@@ -15,17 +15,17 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
 {
     if (req.path() == "/login.html")
     {
-        string user_id = req.getData("user_id");
+        string username = req.getData("username");
         string password = req.getData("password");
         // LOG_INFO("---------------------");
-        // LOG_INFO("%s %s",user_id.c_str(),password.c_str());
+        // LOG_INFO("%s %s",username.c_str(),password.c_str());
         // LOG_INFO("---------------------");
         Json::Value datas;
         datas["code"] = 1;
-        if(user_id=="admin" && password=="admin")
+        if(username=="admin" && password=="admin")
         {
             datas["message"] = "登录成功";
-            users.add(user_id, password);
+            users.add(username, password);
         }
         else
         {
@@ -38,7 +38,7 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         resp->addHeader("Server", "Muduo");
         resp->setBody(datas.toStyledString());
     }
-    else if(req.path()=="/logout.html" && req.query()=="?user_id=admin")
+    else if(req.path()=="/logout.html" && req.query()=="?username=admin")
     {
         users.earse("admin");
 
@@ -48,7 +48,7 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         resp->setContentType("text/html");
         resp->addHeader("Server", "Muduo"); 
     }
-    else if(req.path()=="/user.html" && req.query()=="?user_id=admin")
+    else if(req.path()=="/user.html" && req.query()=="?username=admin")
     {
         if(!users.find("admin"))
         {

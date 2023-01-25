@@ -86,22 +86,22 @@
                 mdui-drawer="{target: '#main-drawer', swipe: true}">
                 <i class="mdui-icon material-icons">menu</i>
             </a>
-            <a class="mdui-typo-title" href="/user.html?user_id={{user_id}}">demo</a>
+            <a class="mdui-typo-title" href="/user.html?username={{username}}">demo</a>
             <div class="mdui-toolbar-spacer"></div>
             <div class="mdui-btn" mdui-tooltip="{content: '账户'}"
                 mdui-menu="{target: '#account-menu', position: 'bottom', fixed: true}">
                 <i class="mdui-icon material-icons">account_circle</i>
-                {{user_id}}
+                {{username}}
             </div>
             <ul class="mdui-menu mdui-menu-cascade" id="account-menu">
                 <li class="mdui-menu-item">
-                    <a href="userinfo.html?user={{user_id}}" class="mdui-ripple">我的信息</a>
+                    <a href="userinfo.html?user={{username}}" class="mdui-ripple">我的信息</a>
                 </li>
                 <li class="mdui-menu-item">
                     <a href="modifypage.html" class="mdui-ripple">修改信息</a>
                 </li>
                 <li class="mdui-menu-item">
-                    <a href="/logout.html?user_id={{user_id}}" class="mdui-ripple">退出登录</a>
+                    <a href="/logout.html?username={{username}}" class="mdui-ripple">退出登录</a>
                 </li>
             </ul>
         </div>
@@ -109,7 +109,7 @@
     <div class="mdui-drawer" id="main-drawer">
         <div class="mdui-list mdui-m-t-1 mdui-color-white">
             <!-- Menu -->
-            <a class="mdui-list-item mdui-ripple mdui-list-item-active" href="/user.html?user_id={{user_id}}">
+            <a class="mdui-list-item mdui-ripple mdui-list-item-active" href="/user.html?username={{username}}">
                 <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
                 <div class="mdui-list-item-content">首页</div>
             </a>
@@ -132,7 +132,7 @@
             <div class="mdui-divider"></div>
 
             <!-- User -->
-            <a class="mdui-list-item mdui-ripple " href="status.php?user_id={{user_id}}">
+            <a class="mdui-list-item mdui-ripple " href="status.php?username={{username}}">
                 <i class="mdui-list-item-icon mdui-icon material-icons">play_circle_outline</i>
                 <div class="mdui-list-item-content">我的提交</div>
             </a>
