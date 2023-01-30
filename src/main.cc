@@ -7,7 +7,8 @@
 #include "json/json.h"
 #include "Render.h"
 #include "Users.h"
-#include "db/db.h"
+#include "model/User.h"
+#include "model/UserModel.h"
 
 Users users;
 
@@ -31,6 +32,30 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         {
             datas["code"] = 0;
             datas["message"] = "用户名或密码错误";
+        }
+        resp->setStatusCode(HttpResponse::k200Ok);
+        resp->setStatusMessage("OK");
+        resp->setContentType("text/html");
+        resp->addHeader("Server", "Muduo");
+        resp->setBody(datas.toStyledString());
+    }
+    else if(req.path() == "/register.html")
+    {
+        string username = req.getData("username");
+        string nick = req.getData("nick");
+        string password = req.getData("password");
+        string email = req.getData("email");
+        Json::Value datas;
+        datas["code"] = 1;
+        if(username=="admin" && password=="admin")
+        {
+            datas["message"] = "注册成功";
+            users.add(username, password);
+        }
+        else
+        {
+            datas["code"] = 0;
+            datas["message"] = "用户存在，注册失败";
         }
         resp->setStatusCode(HttpResponse::k200Ok);
         resp->setStatusMessage("OK");
@@ -105,10 +130,6 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
 
 int main()
 {
-    {
-        MySql mysql;
-    }
-    
     EventLoop loop;
     InetAddress addr("192.168.230.152",8000);
     HttpServer server(&loop,addr,"dummy");

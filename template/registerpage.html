@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Ren Baoshuo">
+    <meta name="generator" content="HUSTOJ">
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Title -->
+    <title>注册 - demo</title>
+
+    <!-- MDUI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
+    <script>
+        var $ = mdui.$;
+    </script>
+    <style>
+        @media (min-width: 840px) {
+            .mdui-container {
+                padding-top: 80px;
+            }
+        }
+
+        @media (min-width: 480px) {
+            .mdui-container {
+                padding-top: 60px;
+            }
+        }
+
+        .mdui-container {
+            padding-top: 40px;
+            padding-bottom: 60px;
+            position: relative;
+        }
+
+        .mdui-select-menu {
+            min-height: 300px !important;
+        }
+    </style>
+
+    <!-- Fonts -->
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        as="style" onload="this.onload=null, this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+    </noscript>
+
+    <!-- Styles -->
+    <style>
+        code {
+            font-family: 'Roboto Mono', 'Consolas', monospace !important;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Roboto', 'Noto', 'Helvetica', 'Arial', sans-serif !important;
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script>
+        console.log('\n %c HUSTOJ %c https://github.com/zhblue/hustoj %c\n', 'color: #fadfa3; background: #000000; padding:5px 0;', 'background: #fadfa3; padding:5px 0;', '');
+        console.log('\n %c Theme Author %c Baoshuo (@renbaoshuo) %c https://baoshuo.ren %c\n', 'color: #fadfa3; background: #000000; padding:5px 0;', 'background: #fadfa3; padding:5px 0;', 'background: #ffbf33; padding:5px 0;', '');
+        console.log('\n %c MDUI v1.0.1 %c https://mdui.org %c\n', 'color: #ffffff; background: #030307; padding:5px 0;', 'background: #673ab7; padding:5px 0;', '');
+        console.log('\n GitHub Homepage: https://github.com/zhblue/hustoj \n Document: https://zhblue.github.io/hustoj \n Bug report URL: https://github.com/zhblue/hustoj/issues \n \n%c ★ Please give us a star on GitHub! ★ %c \n', 'color: red;', '')
+    </script>
+
+
+    <!-- KaTeX -->
+    <script> var katex_options = { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }, { left: '\\(', right: '\\)', display: false }, { left: '\\[', right: '\\]', display: true }] }; </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" as="style"
+        onload="this.onload=null, this.rel='stylesheet'">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, katex_options);"></script>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/styles/atom-one-light.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/highlight.min.js"
+        onload="hljs.initHighlightingOnLoad();"></script>
+    <!-- Pascal -->
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/languages/delphi.min.js"></script>
+</head>
+
+<body class="mdui-drawer-body-left mdui-theme-primary-indigo mdui-theme-accent-indigo mdui-appbar-with-toolbar">
+    <header class="mdui-appbar mdui-appbar-fixed" style="z-index: 999;">
+        <div class="mdui-toolbar mdui-color-theme">
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '菜单'}"
+                mdui-drawer="{target: '#main-drawer', swipe: true}">
+                <i class="mdui-icon material-icons">menu</i>
+            </a>
+            <a class="mdui-typo-title" href="./">demo</a>
+            <div class="mdui-toolbar-spacer"></div>
+            <div class="mdui-btn" mdui-tooltip="{content: '账户'}"
+                mdui-menu="{target: '#account-menu', position: 'bottom', fixed: true}">
+                <i class="mdui-icon material-icons">account_circle</i>
+                请登录
+            </div>
+            <ul class="mdui-menu mdui-menu-cascade" id="account-menu">
+                <li class="mdui-menu-item">
+                    <a href="loginpage.html" class="mdui-ripple">登录</a>
+                </li>
+                <li class="mdui-menu-item">
+                    <a href="registerpage.html" class="mdui-ripple">注册</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="mdui-drawer" id="main-drawer">
+        <div class="mdui-list mdui-m-t-1 mdui-color-white">
+            <!-- Menu -->
+            <a class="mdui-list-item mdui-ripple " href="index.html">
+                <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+                <div class="mdui-list-item-content">首页</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="problemset.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">book</i>
+                <div class="mdui-list-item-content">题目</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="category.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">apps</i>
+                <div class="mdui-list-item-content">分类</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="status.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">play_circle_outline</i>
+                <div class="mdui-list-item-content">状态</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="contest.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">layers</i>
+                <div class="mdui-list-item-content">竞赛/作业</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="ranklist.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">equalizer</i>
+                <div class="mdui-list-item-content">排名</div>
+            </a>
+            <div class="mdui-divider"></div>
+
+            <!-- User -->
+            <a class="mdui-list-item mdui-ripple " href="loginpage.html">
+                <i class="mdui-list-item-icon mdui-icon material-icons">assignment_ind</i>
+                <div class="mdui-list-item-content">登录</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple mdui-list-item-active" href="registerpage.html">
+                <i class="mdui-list-item-icon mdui-icon material-icons">person_add</i>
+                <div class="mdui-list-item-content">注册</div>
+            </a>
+
+        </div>
+    </div>
+    <div class="mdui-container">
+        <div class="mdui-row" style="display: flex; justify-content: center;">
+            <div class="mdui-card mdui-col-sm-6">
+                <div class="mdui-card-primary">
+                    <div class="mdui-card-primary-title" style="text-align: center">注册</div>
+                    <!-- <div class="mdui-card-primary-subtitle"></div> -->
+                </div>
+                <form id="register" action="javascript:void(0)" method="post" role="form" name="register"
+                    class="mdui-m-a-2 mdui-card-content">
+                    <div style="position: relative;">
+                        <a class="mdui-btn mdui-btn-icon" style="display: inline-block; top: 40px; position: absolute;">
+                            <i class="mdui-icon material-icons">account_circle</i>
+                        </a>
+                        <div class="mdui-textfield mdui-textfield-floating-label"
+                            style="width: calc(100% - 50px); display: inline-block; margin-left: 45px;">
+                            <label class="mdui-textfield-label">用户名</label>
+                            <input class="mdui-textfield-input" id="username" name="username" type="text" required />
+                            <div class="mdui-textfield-error">请输入用户名</div>
+                        </div>
+                    </div>
+                    <div style="position: relative;">
+                        <a class="mdui-btn mdui-btn-icon" style="display: inline-block; top: 40px; position: absolute;">
+                            <i class="mdui-icon material-icons">face</i>
+                        </a>
+                        <div class="mdui-textfield mdui-textfield-floating-label"
+                            style="width: calc(100% - 50px); display: inline-block; margin-left: 45px;">
+                            <label class="mdui-textfield-label">昵称</label>
+                            <input class="mdui-textfield-input" id="nick" name="nick" type="text" required />
+                            <div class="mdui-textfield-error">请输入昵称</div>
+                        </div>
+                    </div>
+                    <div style="position: relative;">
+                        <a class="mdui-btn mdui-btn-icon" style="display: inline-block; top: 40px; position: absolute;">
+                            <i class="mdui-icon material-icons">vpn_key</i>
+                        </a>
+                        <div class="mdui-textfield mdui-textfield-floating-label"
+                            style="width: calc(100% - 50px); display: inline-block; margin-left: 45px;">
+                            <label class="mdui-textfield-label">密码</label>
+                            <input class="mdui-textfield-input" id="password" name="password" type="password"
+                                pattern="^.*(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$" autocomplete="off" required />
+                            <div class="mdui-textfield-error">请输入至少 6 位，且包含大小写字母的密码</div>
+                            <div class="mdui-textfield-helper">请输入至少 6 位，且包含大小写字母的密码</div>
+                        </div>
+                    </div>
+                    <div style="position: relative;">
+                        <a class="mdui-btn mdui-btn-icon" style="display: inline-block; top: 40px; position: absolute;">
+                            <i class="mdui-icon material-icons">vpn_key</i>
+                        </a>
+                        <div id="rptpasswordf" class="mdui-textfield mdui-textfield-floating-label"
+                            style="width: calc(100% - 50px); display: inline-block; margin-left: 45px;">
+                            <label class="mdui-textfield-label">重复密码</label>
+                            <input class="mdui-textfield-input" id="rptpassword" name="rptpassword" type="password"
+                                pattern="^.*(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$" autocomplete="off" required />
+                            <div class="mdui-textfield-error">请再输入一遍密码</div>
+                            <div class="mdui-textfield-helper">请再输入一遍密码</div>
+                        </div>
+                    </div>
+                    <div style="position: relative;">
+                        <a class="mdui-btn mdui-btn-icon" style="display: inline-block; top: 40px; position: absolute;">
+                            <i class="mdui-icon material-icons">email</i>
+                        </a>
+                        <div class="mdui-textfield mdui-textfield-floating-label"
+                            style="width: calc(100% - 50px); display: inline-block; margin-left: 45px;">
+                            <label class="mdui-textfield-label">邮箱</label>
+                            <input class="mdui-textfield-input" id="email" name="email" type="email" required />
+                            <div class="mdui-textfield-error">请输入一个合法的邮箱</div>
+                        </div>
+                    </div>
+                    <div class="mdui-card-actions mdui-m-t-4">
+                        <div class="mdui-float-right">
+                            <button type="button" value="Register" onclick="check();"
+                                class="mdui-btn mdui-m-a-0 mdui-color-theme-accent">注册</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function check() {
+            if ($("#user_id").val().length < 3) {
+                mdui.alert("用户名过短！");
+                $("#user_id").trigger('focus');
+                return;
+            }
+            if ($("#password").val().length < 6) {
+                mdui.alert("密码过短！");
+                $("#password").trigger('focus');
+                return;
+            }
+
+            if ($("#password").val() !== $("#rptpassword").val()) {
+                mdui.alert("两次输入的密码不一致");
+                if (!$('#rptpasswordf').hasClass('mdui-textfield-invalid')) {
+                    $('#rptpasswordf').addClass('mdui-textfield-invalid');
+                }
+                $('#rptpasswordf>.mdui-textfield-error').text("两次输入的密码不一致");
+                $("#rptpassword").trigger('focus');
+                return;
+            }
+            //document.getElementById('register').submit();
+            Register();
+        }
+        $('#rptpassword').on('input', function () {
+            if ($("#password").val() != $("#rptpassword").val()) {
+                if (!$('#rptpasswordf').hasClass('mdui-textfield-invalid')) {
+                    $('#rptpasswordf').addClass('mdui-textfield-invalid');
+                }
+                $('#rptpasswordf>.mdui-textfield-error').text('两次输入的密码不一致');
+            } else {
+                $('#rptpasswordf').removeClass('mdui-textfield-invalid');
+                $('#rptpasswordf>.mdui-textfield-error').text('请输入至少 6 位，且包含大小写字母的密码');
+            }
+        });
+
+        function Register() {
+            $.ajax({
+                url: "/register.html",
+                type: "POST",
+                data: {
+                    username: $("#username").val(),
+                    nick: $("#nick").val(),
+                    password: $("#password").val(),
+                    email: $("#email").val()
+                },
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                async: false,
+                withCredentials: true,            // 这里设置了withCredentials
+                crossDomain: true,
+                success: function (data) {
+                    var ret = JSON.parse(data)
+                    if (ret.code == 1) {
+                        alert(ret.message);
+                        var newurl = "/user.html?username=" + $("#username").val();
+                        window.location.assign(newurl);
+                    }
+                    else {
+                        alert(ret.message);
+                    }
+                },
+                error: function (data) {
+                    alert("Connection error");
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

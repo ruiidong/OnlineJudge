@@ -11,10 +11,11 @@ link_directories(./lib)
 
 aux_source_directory(./src SRC_LIST)
 aux_source_directory(./src/db DB_LIST)
+aux_source_directory(./src/model MODEL_LIST)
 aux_source_directory(./src/tinymuduo/base TINYMUDUO_LIST)
 aux_source_directory(./src/tinymuduo/net TINYMUDUO_LIST)
 
-add_executable(OnlineJudge ${SRC_LIST} ${DB_LIST} ${TINYMUDUO_LIST} ${TINYMUDUO_LIST})
+add_executable(OnlineJudge ${SRC_LIST} ${DB_LIST} ${MODEL_LIST} ${TINYMUDUO_LIST} ${TINYMUDUO_LIST})
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
