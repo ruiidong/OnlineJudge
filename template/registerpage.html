@@ -175,17 +175,6 @@
                     </div>
                     <div style="position: relative;">
                         <a class="mdui-btn mdui-btn-icon" style="display: inline-block; top: 40px; position: absolute;">
-                            <i class="mdui-icon material-icons">face</i>
-                        </a>
-                        <div class="mdui-textfield mdui-textfield-floating-label"
-                            style="width: calc(100% - 50px); display: inline-block; margin-left: 45px;">
-                            <label class="mdui-textfield-label">昵称</label>
-                            <input class="mdui-textfield-input" id="nick" name="nick" type="text" required />
-                            <div class="mdui-textfield-error">请输入昵称</div>
-                        </div>
-                    </div>
-                    <div style="position: relative;">
-                        <a class="mdui-btn mdui-btn-icon" style="display: inline-block; top: 40px; position: absolute;">
                             <i class="mdui-icon material-icons">vpn_key</i>
                         </a>
                         <div class="mdui-textfield mdui-textfield-floating-label"
@@ -231,11 +220,42 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
+        function Register() {
+            $.ajax({
+                url: "/register.html",
+                type: "POST",
+                data: {
+                    username: $("#username").val(),
+                    password: $("#password").val(),
+                    email: $("#email").val()
+                },
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                async: false,
+                withCredentials: true,            // 这里设置了withCredentials
+                crossDomain: true,
+                success: function (data) {
+                    var ret = JSON.parse(data)
+                    if (ret.code == 1) {
+                        alert(ret.message);
+                        var newurl = "/user.html?username=" + $("#username").val();
+                        window.location.assign(newurl);
+                    }
+                    else {
+                        alert(ret.message);
+                    }
+                },
+                error: function (data) {
+                    alert("Connection error");
+                }
+            });
+        }
         function check() {
-            if ($("#user_id").val().length < 3) {
+            if ($("#username").val().length < 3) {
                 mdui.alert("用户名过短！");
-                $("#user_id").trigger('focus');
+                $("#username").trigger('focus');
                 return;
             }
             if ($("#password").val().length < 6) {
@@ -267,37 +287,6 @@
                 $('#rptpasswordf>.mdui-textfield-error').text('请输入至少 6 位，且包含大小写字母的密码');
             }
         });
-
-        function Register() {
-            $.ajax({
-                url: "/register.html",
-                type: "POST",
-                data: {
-                    username: $("#username").val(),
-                    nick: $("#nick").val(),
-                    password: $("#password").val(),
-                    email: $("#email").val()
-                },
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                async: false,
-                withCredentials: true,            // 这里设置了withCredentials
-                crossDomain: true,
-                success: function (data) {
-                    var ret = JSON.parse(data)
-                    if (ret.code == 1) {
-                        alert(ret.message);
-                        var newurl = "/user.html?username=" + $("#username").val();
-                        window.location.assign(newurl);
-                    }
-                    else {
-                        alert(ret.message);
-                    }
-                },
-                error: function (data) {
-                    alert("Connection error");
-                }
-            });
-        }
     </script>
 </body>
 

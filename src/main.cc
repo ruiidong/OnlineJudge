@@ -7,7 +7,6 @@
 #include "json/json.h"
 #include "Render.h"
 #include "Users.h"
-#include "model/User.h"
 #include "model/UserModel.h"
 
 Users users;
@@ -18,12 +17,11 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
     {
         string username = req.getData("username");
         string password = req.getData("password");
-        // LOG_INFO("---------------------");
-        // LOG_INFO("%s %s",username.c_str(),password.c_str());
-        // LOG_INFO("---------------------");
         Json::Value datas;
         datas["code"] = 1;
-        if(username=="admin" && password=="admin")
+        UserModel usermodel;
+        User user = usermodel.query(username, password);
+        if(user.getUid() != -1)
         {
             datas["message"] = "登录成功";
             users.add(username, password);
@@ -42,12 +40,13 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
     else if(req.path() == "/register.html")
     {
         string username = req.getData("username");
-        string nick = req.getData("nick");
         string password = req.getData("password");
         string email = req.getData("email");
         Json::Value datas;
         datas["code"] = 1;
-        if(username=="admin" && password=="admin")
+        User user(username,password,email);
+        UserModel usermodel;
+        if(usermodel.insert(user))
         {
             datas["message"] = "注册成功";
             users.add(username, password);

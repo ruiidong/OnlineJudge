@@ -2,9 +2,9 @@
 #include "tinymuduo/base/Logging.h"
 
 static string sever = "127.0.0.1";
-static string user = "root";
+static string user = "lrd";
 static string password = "lrd520LRD";
-static string daname = "onlinejudge";
+static string dbname = "onlinejudge";
 
 MySql::MySql()
 {
@@ -20,14 +20,16 @@ MySql::~MySql()
 bool MySql::connect()
 {
     MYSQL* p = mysql_real_connect(conn_, sever.c_str(), user.c_str(),
-                password.c_str(), daname.c_str(), 3360, nullptr, 0);
+                password.c_str(), dbname.c_str(), 3306, nullptr, 0);
     if(p != nullptr)
     {
         mysql_query(conn_, "set names gbk");
+        return true;
     }
     else
     {
         LOG_INFO("connect mysql fail");
+        return false;
     }
 }
 
@@ -36,6 +38,7 @@ bool MySql::update(string sql)
     if(mysql_query(conn_, sql.c_str()))
     {
         LOG_INFO("更新失败");
+        LOG_INFO("mysql errno : %s", mysql_error(conn_));
         return false;
     }
     return true;
@@ -46,6 +49,7 @@ MYSQL_RES* MySql::query(string sql)
     if(mysql_query(conn_, sql.c_str()))
     {
         LOG_INFO("查询失败");
+        LOG_INFO("mysql errno : %s", mysql_error(conn_));
     }
     return mysql_use_result(conn_);
 }

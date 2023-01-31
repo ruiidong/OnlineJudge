@@ -4,7 +4,7 @@
 #include <iostream>
 
 // CREATE TABLE user(
-// uid INT(11) PRIMARY KEY,
+// uid INT(11) PRIMARY KEY AUTO_INCREMENT,
 // username VARCHAR(20) NOT NULL UNIQUE KEY,
 // password VARCHAR(20) NOT NULL,
 // email VARCHAR(20),
@@ -51,8 +51,37 @@ User UserModel::query(int uid)
                 user.setEmail(row[3]);
                 user.setSubmit(atoi(row[4]));
                 user.setSolved(atoi(row[5]));
+                return user;
             }
         }
     }
+    return User();
 }
 
+User UserModel::query(const string& username, const string& password)
+{
+    char sql[1024] = {0};
+    sprintf(sql, "select * from user where username = '%s' and password = '%s'", username.c_str(), password.c_str());
+
+    MySql mysql;
+    if(mysql.connect())
+    {
+        MYSQL_RES* res = mysql.query(sql);
+        if(res != nullptr)
+        {
+            MYSQL_ROW row = mysql_fetch_row(res);
+            if(row != nullptr)
+            {
+                User user;
+                user.setUid(atoi(row[0]));
+                user.setUsername(row[1]);
+                user.setPassword(row[2]);
+                user.setEmail(row[3]);
+                user.setSubmit(atoi(row[4]));
+                user.setSolved(atoi(row[5]));
+                return user;
+            }
+        }
+    }
+    return User();
+}

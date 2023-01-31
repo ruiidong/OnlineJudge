@@ -7,10 +7,11 @@ using namespace std;
 class User
 {
 public:
-    User(int uid = -1, const string& username = "", const string& password = "", const string& email = "",
+    User(const string& username = "", const string& password = "", const string& email = "",
             int submit = 0, int solved = 0)
-        : uid_(uid)
+        : uid_(-1)
         , username_(username)
+        , password_(password)
         , email_(email)
         , submit_(submit)
         , solved_(solved)
