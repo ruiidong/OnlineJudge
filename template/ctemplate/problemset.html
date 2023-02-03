@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Ren Baoshuo">
+    <meta name="generator" content="HUSTOJ">
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Title -->
+    <title>demo</title>
+
+    <!-- MDUI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
+    <script>
+        var $ = mdui.$;
+    </script>
+    <style>
+        @media (min-width: 840px) {
+            .mdui-container {
+                padding-top: 80px;
+            }
+        }
+
+        @media (min-width: 480px) {
+            .mdui-container {
+                padding-top: 60px;
+            }
+        }
+
+        .mdui-container {
+            padding-top: 40px;
+            padding-bottom: 60px;
+            position: relative;
+        }
+
+        .mdui-select-menu {
+            min-height: 300px !important;
+        }
+    </style>
+
+    <!-- Fonts -->
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        as="style" onload="this.onload=null, this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+    </noscript>
+
+    <!-- Styles -->
+    <style>
+        code {
+            font-family: 'Roboto Mono', 'Consolas', monospace !important;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Roboto', 'Noto', 'Helvetica', 'Arial', sans-serif !important;
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script>
+        console.log('\n %c HUSTOJ %c https://github.com/zhblue/hustoj %c\n', 'color: #fadfa3; background: #000000; padding:5px 0;', 'background: #fadfa3; padding:5px 0;', '');
+        console.log('\n %c Theme Author %c Baoshuo (@renbaoshuo) %c https://baoshuo.ren %c\n', 'color: #fadfa3; background: #000000; padding:5px 0;', 'background: #fadfa3; padding:5px 0;', 'background: #ffbf33; padding:5px 0;', '');
+        console.log('\n %c MDUI v1.0.1 %c https://mdui.org %c\n', 'color: #ffffff; background: #030307; padding:5px 0;', 'background: #673ab7; padding:5px 0;', '');
+        console.log('\n GitHub Homepage: https://github.com/zhblue/hustoj \n Document: https://zhblue.github.io/hustoj \n Bug report URL: https://github.com/zhblue/hustoj/issues \n \n%c ★ Please give us a star on GitHub! ★ %c \n', 'color: red;', '')
+    </script>
+
+
+    <!-- KaTeX -->
+    <script> var katex_options = { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }, { left: '\\(', right: '\\)', display: false }, { left: '\\[', right: '\\]', display: true }] }; </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" as="style"
+        onload="this.onload=null, this.rel='stylesheet'">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, katex_options);"></script>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/styles/atom-one-light.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/highlight.min.js"
+        onload="hljs.initHighlightingOnLoad();"></script>
+    <!-- Pascal -->
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/languages/delphi.min.js"></script>
+</head>
+
+<body class="mdui-drawer-body-left mdui-theme-primary-indigo mdui-theme-accent-indigo mdui-appbar-with-toolbar">
+    <header class="mdui-appbar mdui-appbar-fixed" style="z-index: 999;">
+        <div class="mdui-toolbar mdui-color-theme">
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '菜单'}"
+                mdui-drawer="{target: '#main-drawer', swipe: true}">
+                <i class="mdui-icon material-icons">menu</i>
+            </a>
+            <a class="mdui-typo-title" href="./">demo</a>
+            <div class="mdui-toolbar-spacer"></div>
+            <div class="mdui-btn" mdui-tooltip="{content: '账户'}"
+                mdui-menu="{target: '#account-menu', position: 'bottom', fixed: true}">
+                <i class="mdui-icon material-icons">account_circle</i>
+                {{username}}
+            </div>
+            <ul class="mdui-menu mdui-menu-cascade" id="account-menu">
+                <li class="mdui-menu-item">
+                    <a href="userinfo.html?user={{username}}" class="mdui-ripple">我的信息</a>
+                </li>
+                <li class="mdui-menu-item">
+                    <a href="modifypage.html" class="mdui-ripple">修改信息</a>
+                </li>
+                <li class="mdui-menu-item">
+                    <a href="/logout.html?username={{username}}" class="mdui-ripple">退出登录</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="mdui-drawer" id="main-drawer">
+        <div class="mdui-list mdui-m-t-1 mdui-color-white">
+            <!-- Menu -->
+            <a class="mdui-list-item mdui-ripple " href="/user.html?username={{username}}">
+                <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+                <div class="mdui-list-item-content">首页</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple mdui-list-item-active" href="/problemset.html?username={{username}}">
+                <i class="mdui-list-item-icon mdui-icon material-icons">book</i>
+                <div class="mdui-list-item-content">题目</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="/category.html?username={{username}}">
+                <i class="mdui-list-item-icon mdui-icon material-icons">apps</i>
+                <div class="mdui-list-item-content">分类</div>
+            </a>
+
+            <a class="mdui-list-item mdui-ripple " href="ranklist.php">
+                <i class="mdui-list-item-icon mdui-icon material-icons">equalizer</i>
+                <div class="mdui-list-item-content">排名</div>
+            </a>
+            <div class="mdui-divider"></div>
+
+            <!-- User -->
+            <a class="mdui-list-item mdui-ripple " href="status.php?username={{username}}">
+                <i class="mdui-list-item-icon mdui-icon material-icons">play_circle_outline</i>
+                <div class="mdui-list-item-content">我的提交</div>
+            </a>
+
+        </div>
+    </div>
+    <div class="mdui-container">
+        <!-- <div class="mdui-btn-group" style="width: 100% !important;">
+                                        <button class="mdui-btn" disabled>
+                        <i class="mdui-icon material-icons">chevron_left</i>
+                </button>
+                                    <a class="mdui-btn mdui-btn-active" href="problemset.php?page=1">1</a><a class="mdui-btn " href="problemset.php?page=2">2</a><a class="mdui-btn " href="problemset.php?page=3">3</a><a class="mdui-btn " href="problemset.php?page=4">4</a><a class="mdui-btn " href="problemset.php?page=5">5</a><a class="mdui-btn " href="problemset.php?page=6">6</a>                                        <a class="mdui-btn" href="problemset.php?page=2">
+                    <i class="mdui-icon material-icons">chevron_right</i>
+                </a>
+                    </div> -->
+        <!-- Search -->
+        <div class="mdui-row-xs-1 mdui-row-sm-2">
+            <form action="problem.html">
+                <div class="mdui-textfield mdui-textfield-floating-label mdui-col">
+                    <label class="mdui-textfield-label">题目跳转</label>
+                    <input class="mdui-textfield-input" name="id"
+                        style="width: calc(100% - 40px); display: inline-block;" type="text">
+                    <button class="mdui-btn mdui-btn-icon" type="sumbit">
+                        <i class="mdui-icon material-icons" style="top: 35%; left: 40%;">send</i>
+                    </button>
+                </div>
+            </form>
+            <form>
+                <div class="mdui-textfield mdui-textfield-floating-label mdui-col">
+                    <label class="mdui-textfield-label">题目搜索</label>
+                    <input class="mdui-textfield-input" name="search" type="text"
+                        style="width: calc(100% - 40px); display: inline-block;" value="">
+                    <button class="mdui-btn mdui-btn-icon" type="sumbit">
+                        <i class="mdui-icon material-icons" style="top: 35%; left: 40%;">search</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <table id="problemset" width="90%" class="mdui-table mdui-table-hoverable mdui-m-y-4">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>标题</th>
+                    <th>分类</th>
+                    <th>通过</th>
+                    <th>提交</th>
+                    <th>通过率</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#problem}}
+                <tr>
+                    <td>{{pid}}</td>
+                    <td><a class="mdui-text-color-theme-accent" href="problem.html?id={{pid}}">{{title}}</a></td>
+                    <td><a class="mdui-text-color-theme-accent"
+                        href="problemset.php?search={{apps}}">{{apps}}</td>
+                    <td><a class="mdui-text-color-theme-accent"></a>{{solved}}</td>
+                    <td><a class="mdui-text-color-theme-accent"></a>{{submit}}</td>
+                    <td>{{odds}}</td>
+                </tr>
+                {{/problem}}
+                <!-- <tr>
+                    <td>1000</td>
+                    <td><a class="mdui-text-color-theme-accent" href="problem.php?id=1000">The A+B Problem</a></td>
+                    <td><a class="mdui-text-color-theme-accent"
+                            href="problemset.php?search=%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%EF%BC%8C%E7%86%9F%E6%82%89OJ+%E9%9A%BE%E5%BA%A6%E2%AD%90+%E6%B0%B4%E9%A2%98">系统原理，熟悉OJ
+                            难度⭐ 水题</td>
+                    <td><a class="mdui-text-color-theme-accent" href="status.php?problem_id=1000&jresult=4">676</td>
+                    <td><a class="mdui-text-color-theme-accent" href="status.php?problem_id=1000">1671</td>
+                    <td>40.45%</td>
+                </tr> -->
+            </tbody>
+        </table>
+        <!-- <div class="mdui-btn-group mdui-float-right">
+            <button class="mdui-btn" disabled>
+                <i class="mdui-icon material-icons">chevron_left</i>
+            </button>
+            <a class="mdui-btn mdui-btn-active" href="problemset.php?page=1">1</a><a class="mdui-btn "
+                href="problemset.php?page=2">2</a><a class="mdui-btn " href="problemset.php?page=3">3</a><a
+                class="mdui-btn " href="problemset.php?page=4">4</a><a class="mdui-btn "
+                href="problemset.php?page=5">5</a><a class="mdui-btn " href="problemset.php?page=6">6</a> <a
+                class="mdui-btn" href="problemset.php?page=2">
+                <i class="mdui-icon material-icons">chevron_right</i>
+            </a>
+        </div> -->
+    </div>
+</body>
+
+</html>
+<!--not cached-->

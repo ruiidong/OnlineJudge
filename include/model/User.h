@@ -41,27 +41,27 @@ public:
     {
         solved_ = solved;
     }
-    int getUid()
+    int getUid() const
     {
         return uid_;
     }
-    string getUsername()
+    string getUsername() const
     {
         return username_;
     }
-    string getPassword()
+    string getPassword() const
     {
         return password_;
     }
-    string getEmail()
+    string getEmail() const
     {
         return email_;
     }
-    int getSubmit()
+    int getSubmit() const
     {
         return submit_;
     }
-    int getSolved()
+    int getSolved() const
     {
         return solved_ ;
     }

@@ -8,6 +8,8 @@
 #include "Render.h"
 #include "Users.h"
 #include "model/UserModel.h"
+#include "model/ProblemModel.h"
+#include "model/CategoryModel.h"
 
 Users users;
 
@@ -72,9 +74,11 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         resp->setContentType("text/html");
         resp->addHeader("Server", "Muduo"); 
     }
-    else if(req.path()=="/user.html" && req.query()=="?username=admin")
+    else if(req.path()=="/user.html")
     {
-        if(!users.find("admin"))
+        string username = req.query().substr(10);
+
+        if(!users.find(username))
         {
             resp->setStatusCode(HttpResponse::k302MovedTemporarily);
             resp->setStatusMessage("OK");
@@ -86,7 +90,59 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         }
 
         string html;
-        Render::RenderUser(html);
+        Render::RenderUser(html, username);
+        resp->setStatusCode(HttpResponse::k200Ok);
+        resp->setStatusMessage("OK");
+        resp->setContentType("text/html");
+        resp->addHeader("Server", "Muduo");
+        resp->setBody(html);
+    }
+    else if(req.path()=="/problemset.html")
+    {
+        string username = req.query().substr(10);
+
+        if(!users.find(username))
+        {
+            resp->setStatusCode(HttpResponse::k302MovedTemporarily);
+            resp->setStatusMessage("OK");
+            resp->setRedirect("/");
+            resp->setContentType("text/html");
+            resp->addHeader("Server", "Muduo");
+
+            return;
+        }
+
+        ProblemModel problemmodel;
+        vector<Problem> problems;
+        problemmodel.query(problems);
+        string html;
+        Render::RenderProblem(html, problems, username);
+        resp->setStatusCode(HttpResponse::k200Ok);
+        resp->setStatusMessage("OK");
+        resp->setContentType("text/html");
+        resp->addHeader("Server", "Muduo");
+        resp->setBody(html);
+    }
+    else if(req.path()=="/category.html")
+    {
+        string username = req.query().substr(10);
+
+        if(!users.find(username))
+        {
+            resp->setStatusCode(HttpResponse::k302MovedTemporarily);
+            resp->setStatusMessage("OK");
+            resp->setRedirect("/");
+            resp->setContentType("text/html");
+            resp->addHeader("Server", "Muduo");
+
+            return;
+        }
+
+        CategoryModel categorymodel;
+        vector<Category> categorys;
+        categorymodel.query(categorys);
+        string html;
+        Render::RenderCategory(html, categorys, username);
         resp->setStatusCode(HttpResponse::k200Ok);
         resp->setStatusMessage("OK");
         resp->setContentType("text/html");
