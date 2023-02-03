@@ -85,3 +85,30 @@ User UserModel::query(const string& username, const string& password)
     }
     return User();
 }
+
+void UserModel::query(vector<User>& users)
+{
+    char sql[1024] = {0};
+    sprintf(sql,"select * from user order by solved desc,submit");
+
+    MySql mysql;
+    if(mysql.connect())
+    {
+        MYSQL_RES *res = mysql.query(sql);
+        if (res != nullptr)
+        {
+            MYSQL_ROW row = nullptr;
+            while ((row = mysql_fetch_row(res)) != nullptr)
+            {
+                User user(
+                    row[1],
+                    row[2],
+                    row[3],
+                    atoi(row[4]),
+                    atoi(row[5])
+                );
+                users.push_back(user);
+            }
+        }
+    }
+}

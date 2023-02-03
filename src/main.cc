@@ -149,6 +149,32 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         resp->addHeader("Server", "Muduo");
         resp->setBody(html);
     }
+    else if(req.path()=="/ranklist.html")
+    {
+        string username = req.query().substr(10);
+
+        if(!users.find(username))
+        {
+            resp->setStatusCode(HttpResponse::k302MovedTemporarily);
+            resp->setStatusMessage("OK");
+            resp->setRedirect("/");
+            resp->setContentType("text/html");
+            resp->addHeader("Server", "Muduo");
+
+            return;
+        }
+
+        UserModel usermodel;
+        vector<User> users;
+        usermodel.query(users);
+        string html;
+        Render::RenderRanklist(html,users,username);
+        resp->setStatusCode(HttpResponse::k200Ok);
+        resp->setStatusMessage("OK");
+        resp->setContentType("text/html");
+        resp->addHeader("Server", "Muduo");
+        resp->setBody(html);
+    }
 //     if (req.method() == HttpRequest::kGet && req.path() == "/")
 //     {
 //         resp->setStatusCode(HttpResponse::k200Ok);

@@ -86,7 +86,7 @@
                 mdui-drawer="{target: '#main-drawer', swipe: true}">
                 <i class="mdui-icon material-icons">menu</i>
             </a>
-            <a class="mdui-typo-title" href="/user.html?username={{username}}">demo</a>
+            <a class="mdui-typo-title" href="./">demo</a>
             <div class="mdui-toolbar-spacer"></div>
             <div class="mdui-btn" mdui-tooltip="{content: '账户'}"
                 mdui-menu="{target: '#account-menu', position: 'bottom', fixed: true}">
@@ -95,13 +95,13 @@
             </div>
             <ul class="mdui-menu mdui-menu-cascade" id="account-menu">
                 <li class="mdui-menu-item">
-                    <a href="userinfo.html?user={{username}}" class="mdui-ripple">我的信息</a>
+                    <a href="userinfo.php?user=wbs24k" class="mdui-ripple">我的信息</a>
                 </li>
                 <li class="mdui-menu-item">
-                    <a href="modifypage.html" class="mdui-ripple">修改信息</a>
+                    <a href="modifypage.php" class="mdui-ripple">修改信息</a>
                 </li>
                 <li class="mdui-menu-item">
-                    <a href="/logout.html?username={{username}}" class="mdui-ripple">退出登录</a>
+                    <a href="logout.php" class="mdui-ripple">退出登录</a>
                 </li>
             </ul>
         </div>
@@ -109,7 +109,7 @@
     <div class="mdui-drawer" id="main-drawer">
         <div class="mdui-list mdui-m-t-1 mdui-color-white">
             <!-- Menu -->
-            <a class="mdui-list-item mdui-ripple mdui-list-item-active" href="/user.html?username={{username}}">
+            <a class="mdui-list-item mdui-ripple " href="/user.html?username={{username}}">
                 <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
                 <div class="mdui-list-item-content">首页</div>
             </a>
@@ -121,14 +121,14 @@
                 <i class="mdui-list-item-icon mdui-icon material-icons">apps</i>
                 <div class="mdui-list-item-content">分类</div>
             </a>
-            <a class="mdui-list-item mdui-ripple " href="/ranklist.html?username={{username}}">
+            <a class="mdui-list-item mdui-ripple mdui-list-item-active " href="/ranklist.html?username={{username}}">
                 <i class="mdui-list-item-icon mdui-icon material-icons">equalizer</i>
                 <div class="mdui-list-item-content">排名</div>
             </a>
             <div class="mdui-divider"></div>
 
             <!-- User -->
-            <a class="mdui-list-item mdui-ripple " href="status.php?username={{username}}">
+            <a class="mdui-list-item mdui-ripple " href="status.php?user_id=wbs24k">
                 <i class="mdui-list-item-icon mdui-icon material-icons">play_circle_outline</i>
                 <div class="mdui-list-item-content">我的提交</div>
             </a>
@@ -136,107 +136,49 @@
         </div>
     </div>
     <div class="mdui-container">
-        <!-- News List -->
-        <div class="mdui-panel" mdui-panel>
-            <h1>公告</h1>
-            <div class="mdui-panel-item">
-                <div class="mdui-panel-item-header">
-                    <div class="mdui-panel-item-title">HelloWorld!</div>
-                    <div class="mdui-panel-item-summary">2022-12-17 20:21:42</div><i
-                        class="mdui-panel-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
-                </div>
+        <form action="ranklist.php">
+            <div class="mdui-textfield" align="center" style="width: 100%">
+                <input class="mdui-textfield-input" type="text" name="prefix" placeholder="用户" value=""
+                    style="width: calc(50% - 40px); display: inline-block;">
+                <button class="mdui-btn mdui-btn-icon" type="sumbit">
+                    <i class="mdui-icon material-icons" style="top: 35%; left: 40%;">search</i>
+                </button>
             </div>
-        </div>
-        <!-- User rank -->
-        <h1>排名</h1>
-        <div class="mdui-table-fluid">
-            <table class="mdui-table">
-                <thead>
+        </form>
+        <table class="mdui-table mdui-m-y-4" width="90%" align="center">
+            <thead>
+                <tr>
                     <th>#</th>
-                    <th>用户名</th>
-                    <th>个性签名</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="userinfo.php?user=zhblue" class="mdui-text-color-theme-accent">zhblue</a></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><a href="userinfo.php?user=guest" class="mdui-text-color-theme-accent">guest</a></td>
-                        <td>炸谷职校</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><a href="userinfo.php?user=yemaster" class="mdui-text-color-theme-accent">yemaster</a></td>
-                        <td>有意向开发的邮箱联系哦</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td><a href="userinfo.php?user=lsy" class="mdui-text-color-theme-accent">lsy</a></td>
-                        <td>lsylsy</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><a href="userinfo.php?user=lujiayi" class="mdui-text-color-theme-accent">lujiayi</a></td>
-                        <td>育才小学</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td><a href="userinfo.php?user=killer" class="mdui-text-color-theme-accent">killer</a></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td><a href="userinfo.php?user=senyuan" class="mdui-text-color-theme-accent">senyuan</a></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td><a href="userinfo.php?user=fermin" class="mdui-text-color-theme-accent">fermin</a></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td><a href="userinfo.php?user=qincy" class="mdui-text-color-theme-accent">qincy</a></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td><a href="userinfo.php?user=123" class="mdui-text-color-theme-accent">123</a></td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td><a href="userinfo.php?user=lmm" class="mdui-text-color-theme-accent">lmm</a></td>
-                        <td>xipu</td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td><a href="userinfo.php?user=p041911070" class="mdui-text-color-theme-accent">p041911070</a>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>13</td>
-                        <td><a href="userinfo.php?user=tatbtc" class="mdui-text-color-theme-accent">tatbtc</a></td>
-                        <td>lalalala</td>
-                    </tr>
-                    <tr>
-                        <td>14</td>
-                        <td><a href="userinfo.php?user=stephenmjm" class="mdui-text-color-theme-accent">stephenmjm</a>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>15</td>
-                        <td><a href="userinfo.php?user=giant" class="mdui-text-color-theme-accent">giant</a></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                    <th>用户</th>
+                    <th>通过</th>
+                    <th>提交</th>
+                    <th>通过率</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#ranklist}}
+                <tr>
+                    <td>{{rank}}</td>
+                    <td>
+                        <div class=center>{{username}}</div>
+                    </td>
+                    <td>
+                        <div class=center>{{solved}}</div>
+                    </td>
+                    <td>
+                        <div class=center>{{submit}}</div>
+                    </td>
+                    <td>{{odds}}</td>
+                </tr>
+                {{/ranklist}}
+            </tbody>
+        </table>
+        <!-- <div class="mdui-btn-group">
+  <button type="button" class="mdui-btn"><i class="mdui-icon material-icons">format_align_left</i></button>
+  <button type="button" class="mdui-btn mdui-btn-active"><i class="mdui-icon material-icons">format_align_center</i></button>
+  <button type="button" class="mdui-btn"><i class="mdui-icon material-icons">format_align_right</i></button>
+  <button type="button" class="mdui-btn"><i class="mdui-icon material-icons">format_align_justify</i></button>
+</div> -->
     </div>
 </body>
 
