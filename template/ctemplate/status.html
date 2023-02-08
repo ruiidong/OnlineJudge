@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Ren Baoshuo">
+    <meta name="generator" content="HUSTOJ">
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Title -->
+    <title>demo</title>
+
+    <!-- MDUI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
+    <script>
+        var $ = mdui.$;
+    </script>
+    <style>
+        @media (min-width: 840px) {
+            .mdui-container {
+                padding-top: 80px;
+            }
+        }
+
+        @media (min-width: 480px) {
+            .mdui-container {
+                padding-top: 60px;
+            }
+        }
+
+        .mdui-container {
+            padding-top: 40px;
+            padding-bottom: 60px;
+            position: relative;
+        }
+
+        .mdui-select-menu {
+            min-height: 300px !important;
+        }
+    </style>
+
+    <!-- Fonts -->
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        as="style" onload="this.onload=null, this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+    </noscript>
+
+    <!-- Styles -->
+    <style>
+        code {
+            font-family: 'Roboto Mono', 'Consolas', monospace !important;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Roboto', 'Noto', 'Helvetica', 'Arial', sans-serif !important;
+        }
+    </style>
+
+    <!-- KaTeX -->
+    <script> var katex_options = { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }, { left: '\\(', right: '\\)', display: false }, { left: '\\[', right: '\\]', display: true }] }; </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" as="style"
+        onload="this.onload=null, this.rel='stylesheet'">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, katex_options);"></script>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/styles/atom-one-light.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/highlight.min.js"
+        onload="hljs.initHighlightingOnLoad();"></script>
+    <!-- Pascal -->
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@10.5.0/languages/delphi.min.js"></script>
+</head>
+
+<body class="mdui-drawer-body-left mdui-theme-primary-indigo mdui-theme-accent-indigo mdui-appbar-with-toolbar">
+    <header class="mdui-appbar mdui-appbar-fixed" style="z-index: 999;">
+        <div class="mdui-toolbar mdui-color-theme">
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '菜单'}"
+                mdui-drawer="{target: '#main-drawer', swipe: true}">
+                <i class="mdui-icon material-icons">menu</i>
+            </a>
+            <a class="mdui-typo-title" href="./">demo</a>
+            <div class="mdui-toolbar-spacer"></div>
+            <div class="mdui-btn" mdui-tooltip="{content: '账户'}"
+                mdui-menu="{target: '#account-menu', position: 'bottom', fixed: true}">
+                <i class="mdui-icon material-icons">account_circle</i>
+                {{username}}
+            </div>
+            <ul class="mdui-menu mdui-menu-cascade" id="account-menu">
+                <li class="mdui-menu-item">
+                    <a href="/logout.html?username={{username}}" class="mdui-ripple">退出登录</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="mdui-drawer" id="main-drawer">
+        <div class="mdui-list mdui-m-t-1 mdui-color-white">
+            <!-- Menu -->
+            <a class="mdui-list-item mdui-ripple " href="/user.html?username={{username}}">
+                <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+                <div class="mdui-list-item-content">首页</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="/problemset.html?username={{username}}">
+                <i class="mdui-list-item-icon mdui-icon material-icons">book</i>
+                <div class="mdui-list-item-content">题目</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple" href="/category.html?username={{username}}">
+                <i class="mdui-list-item-icon mdui-icon material-icons">apps</i>
+                <div class="mdui-list-item-content">分类</div>
+            </a>
+            <a class="mdui-list-item mdui-ripple " href="/ranklist.html?username={{username}}">
+                <i class="mdui-list-item-icon mdui-icon material-icons">equalizer</i>
+                <div class="mdui-list-item-content">排名</div>
+            </a>
+            <div class="mdui-divider"></div>
+            <!-- User -->
+            <a class="mdui-list-item mdui-ripple mdui-list-item-active" href="status.html?username={{username}}">
+                <i class="mdui-list-item-icon mdui-icon material-icons">play_circle_outline</i>
+                <div class="mdui-list-item-content">我的提交</div>
+            </a>
+
+        </div>
+    </div>
+    <div class="mdui-container">
+
+        <div class="mdui-table-fluid mdui-m-y-4">
+            <table id="result-tab" class="mdui-table mdui-table-hoverable mdui-center" width=80%>
+                <thead>
+                    <tr>
+                        <th class="mdui-table-col-numeric">提交编号</th>
+                        <th>用户</th>
+                        <th>题目编号</th>
+                        <th>结果</th>
+                        <th>内存</th>
+                        <th>耗时</th>
+                        <th>语言</th>
+                        <th>代码长度</th>
+                        <th>提交时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#status}}
+                    <tr>
+                        <td>{{sid}}</td>
+                        <td><a href='/user.html?username={{username}}' title='{{username}}'>{{username}}</a></td>
+                        <td>
+                            <div class=center><a href='problem.html?pid={{pid}}'>{{pid}}</a></div>
+                        </td>
+                        <td><span class='hidden' style='display:none' result=11></span>{{result}}</td>
+                        <td>
+                            <div id=center>{{memorylimit}}</div>
+                        </td>
+                        <td>
+                            <div id=center>{{timelimit}}</div>
+                        </td>
+                        <td>{{language}}</td>
+                        <td>{{length}}</td>
+                        <td>{{submittime}}</td>
+                    </tr>
+                    {{/status}}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.hustoj.com/template/bs3/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="http://cdn.hustoj.com/template/bs3/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://cdn.hustoj.com/template/bs3/white.css">
+    <link rel="stylesheet" href="http://cdn.hustoj.com/template/bs3/mathjax.css">
+    <script src="include/jquery-latest.js"></script>
+    <script src="template/mdui/auto_refresh.js?v=0.40"></script>
+</body>
+
+</html>
+<!--not cached-->

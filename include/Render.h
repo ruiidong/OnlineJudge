@@ -7,6 +7,7 @@
 #include "model/Problem.h"
 #include "model/Category.h"
 #include "model/User.h"
+#include "model/Status.h"
 
 using namespace std;
 
@@ -23,7 +24,7 @@ namespace Render
         tpl->Expand(&html,&dict);
     }
 
-    void RenderProblem(string& html, const vector<Problem>& problems, const string& username)
+    void RenderProblemSet(string& html, const vector<Problem>& problems, const string& username)
     {
         ctemplate::TemplateDictionary dict("all_questions");
         dict.SetValue("username",username.c_str());
@@ -88,6 +89,42 @@ namespace Render
         
         ctemplate::Template* tpl;
         tpl = ctemplate::Template::GetTemplate(TEMPLATEBASE + "ranklist.html", ctemplate::DO_NOT_STRIP);
+        tpl->Expand(&html, &dict);  
+    }
+
+    void RenderStatus(string& html, vector<Status>& statuss, const string& username)
+    {
+        ctemplate::TemplateDictionary dict("status");
+        dict.SetValue("username", username.c_str());
+
+        for(const auto& status : statuss)
+        {
+            ctemplate::TemplateDictionary* table_dict = dict.AddSectionDictionary("status");
+            table_dict->SetValue("sid", to_string(status.getSid()).c_str());
+            table_dict->SetValue("username", username);
+            table_dict->SetValue("pid", to_string(status.getPid()).c_str());
+            table_dict->SetValue("result", status.getResult().c_str());
+            table_dict->SetValue("memorylimit", to_string(status.getMemoryLimit()).c_str());
+            table_dict->SetValue("timelimit", to_string(status.getTimeLimit()).c_str());
+            table_dict->SetValue("language", status.getLanguage().c_str());
+            table_dict->SetValue("length", to_string(status.getLength()).c_str());
+            table_dict->SetValue("submittime", status.getSubmittime().c_str());
+        }
+        
+        ctemplate::Template* tpl;
+        tpl = ctemplate::Template::GetTemplate(TEMPLATEBASE + "status.html", ctemplate::DO_NOT_STRIP);
+        tpl->Expand(&html, &dict);  
+    }
+
+    void RenderProblem(string& html, const Problem& problem, const string& username)
+    {
+        ctemplate::TemplateDictionary dict("problem");
+        dict.SetValue("username", username.c_str());
+        dict.SetValue("title",problem.getTitle().c_str());
+        dict.SetValue("description",problem.getDescription().c_str());
+
+        ctemplate::Template* tpl;
+        tpl = ctemplate::Template::GetTemplate(TEMPLATEBASE + "problem.html", ctemplate::DO_NOT_STRIP);
         tpl->Expand(&html, &dict);  
     }
 }

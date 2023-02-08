@@ -39,14 +39,37 @@ void ProblemModel::query(vector<Problem> &problems)
                     row[1],
                     row[2],
                     row[3],
-                    row[4],
-                    row[5],
-                    row[6],
-                    row[7],
-                    atoi(row[8]),
-                    atoi(row[9])
+                    atoi(row[4]),
+                    atoi(row[5])
                 );
                 problems.push_back(problem);
+            }
+        }
+    }
+}
+
+Problem ProblemModel::query(int pid)
+{
+    char sql[1024] = {0};
+    sprintf(sql, "select * from problem where pid = %d", pid);
+
+    MySql mysql;
+    if (mysql.connect())
+    {
+        MYSQL_RES *res = mysql.query(sql);
+        if (res != nullptr)
+        {
+            MYSQL_ROW row = mysql_fetch_row(res);
+            if(row != nullptr)
+            {
+                return Problem(
+                    atoi(row[0]),
+                    row[1],
+                    row[2],
+                    row[3],
+                    atoi(row[4]),
+                    atoi(row[5])
+                );
             }
         }
     }

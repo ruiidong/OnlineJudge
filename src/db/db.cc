@@ -23,7 +23,7 @@ bool MySql::connect()
                 password.c_str(), dbname.c_str(), 3306, nullptr, 0);
     if(p != nullptr)
     {
-        mysql_query(conn_, "set names gbk");
+        mysql_query(conn_, "set names UTF8");
         return true;
     }
     else

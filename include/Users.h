@@ -7,18 +7,18 @@ using namespace std;
 class Users
 {
 public:
-    void earse(const string &user_id)
+    void earse(const string &username)
     {
-        users_.erase(user_id);
+        users_.erase(username);
     }
-    bool find(const string &user_id)
+    bool find(const string &username)
     {
-        auto it = users_.find(user_id);
+        auto it = users_.find(username);
         return it != users_.end() ? true : false;
     }
-    void add(const string &user_id, const string& password)
+    void add(const string &username, const string& password)
     {
-        users_[user_id] = password;
+        users_[username] = password;
     }
 private:
     std::unordered_map<string, string> users_;

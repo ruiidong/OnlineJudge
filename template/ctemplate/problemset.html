@@ -62,15 +62,6 @@
         }
     </style>
 
-    <!-- Scripts -->
-    <script>
-        console.log('\n %c HUSTOJ %c https://github.com/zhblue/hustoj %c\n', 'color: #fadfa3; background: #000000; padding:5px 0;', 'background: #fadfa3; padding:5px 0;', '');
-        console.log('\n %c Theme Author %c Baoshuo (@renbaoshuo) %c https://baoshuo.ren %c\n', 'color: #fadfa3; background: #000000; padding:5px 0;', 'background: #fadfa3; padding:5px 0;', 'background: #ffbf33; padding:5px 0;', '');
-        console.log('\n %c MDUI v1.0.1 %c https://mdui.org %c\n', 'color: #ffffff; background: #030307; padding:5px 0;', 'background: #673ab7; padding:5px 0;', '');
-        console.log('\n GitHub Homepage: https://github.com/zhblue/hustoj \n Document: https://zhblue.github.io/hustoj \n Bug report URL: https://github.com/zhblue/hustoj/issues \n \n%c ★ Please give us a star on GitHub! ★ %c \n', 'color: red;', '')
-    </script>
-
-
     <!-- KaTeX -->
     <script> var katex_options = { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }, { left: '\\(', right: '\\)', display: false }, { left: '\\[', right: '\\]', display: true }] }; </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" as="style"
@@ -104,12 +95,6 @@
             </div>
             <ul class="mdui-menu mdui-menu-cascade" id="account-menu">
                 <li class="mdui-menu-item">
-                    <a href="userinfo.html?user={{username}}" class="mdui-ripple">我的信息</a>
-                </li>
-                <li class="mdui-menu-item">
-                    <a href="modifypage.html" class="mdui-ripple">修改信息</a>
-                </li>
-                <li class="mdui-menu-item">
                     <a href="/logout.html?username={{username}}" class="mdui-ripple">退出登录</a>
                 </li>
             </ul>
@@ -138,7 +123,7 @@
             <div class="mdui-divider"></div>
 
             <!-- User -->
-            <a class="mdui-list-item mdui-ripple " href="status.php?username={{username}}">
+            <a class="mdui-list-item mdui-ripple " href="status.html?username={{username}}">
                 <i class="mdui-list-item-icon mdui-icon material-icons">play_circle_outline</i>
                 <div class="mdui-list-item-content">我的提交</div>
             </a>
@@ -192,7 +177,7 @@
                 {{#problem}}
                 <tr>
                     <td>{{pid}}</td>
-                    <td><a class="mdui-text-color-theme-accent" href="problem.html?id={{pid}}">{{title}}</a></td>
+                    <td><a class="mdui-text-color-theme-accent" href="problem.html?username={{username}}?pid={{pid}}">{{title}}</a></td>
                     <td><a class="mdui-text-color-theme-accent"
                         href="problemset.php?search={{apps}}">{{apps}}</td>
                     <td><a class="mdui-text-color-theme-accent"></a>{{solved}}</td>

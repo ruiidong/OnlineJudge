@@ -9,4 +9,5 @@ class ProblemModel
 {
 public:
     void query(vector<Problem>& problems);
+    Problem query(int pid);
 };
