@@ -11,6 +11,7 @@
 #include "model/ProblemModel.h"
 #include "model/CategoryModel.h"
 #include "model/StatusModel.h"
+#include "Judge.h"
 
 Users users;
 
@@ -65,9 +66,21 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         resp->addHeader("Server", "Muduo");
         resp->setBody(datas.toStyledString());
     }
-    else if(req.path()=="/logout.html" && req.query()=="?username=admin")
+    else if(req.path()=="/logout.html")
     {
-        users.earse("admin");
+        string username = req.query().substr(10);
+        if(!users.find(username))
+        {
+            resp->setStatusCode(HttpResponse::k302MovedTemporarily);
+            resp->setStatusMessage("OK");
+            resp->setRedirect("/");
+            resp->setContentType("text/html");
+            resp->addHeader("Server", "Muduo");
+
+            return;
+        }
+
+        users.earse(username);
 
         resp->setStatusCode(HttpResponse::k302MovedTemporarily);
         resp->setStatusMessage("OK");
@@ -176,21 +189,6 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         resp->addHeader("Server", "Muduo");
         resp->setBody(html);
     }
-    else if(req.path()=="/logout.html")
-    {
-        string username = req.query().substr(10);
-
-        if(users.find(username))
-        {
-            users.earse(username);
-        }
-
-        resp->setStatusCode(HttpResponse::k302MovedTemporarily);
-        resp->setStatusMessage("OK");
-        resp->setRedirect("/");
-        resp->setContentType("text/html");
-        resp->addHeader("Server", "Muduo");
-    }
     else if(req.path()=="/status.html")
     {
         string username = req.query().substr(10);
@@ -219,6 +217,7 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
     }
     else if(req.path() == "/problem.html")
     {
+        string t = req.query();
         string usernamepid = req.query().substr(10);
         int idx = usernamepid.find('?');
         string username = usernamepid.substr(0,idx);
@@ -244,6 +243,42 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         resp->setContentType("text/html");
         resp->addHeader("Server", "Muduo");
         resp->setBody(html);
+    }
+    else if(req.path() == "/compile.html")
+    {
+        string usernamepid = req.query().substr(10);
+        int idx = usernamepid.find('?');
+        string username = usernamepid.substr(0,idx);
+        string pid = usernamepid.substr(idx+5);
+
+        if(!users.find(username))
+        {
+            resp->setStatusCode(HttpResponse::k302MovedTemporarily);
+            resp->setStatusMessage("OK");
+            resp->setRedirect("/");
+            resp->setContentType("text/html");
+            resp->addHeader("Server", "Muduo");
+
+            return;
+        }
+
+        string code = req.getData("code");
+        // cout << "----------------------------------------------------" << endl;
+        // cout << code << endl;
+        // cout << "----------------------------------------------------" << endl;
+        ProblemModel problemodel;
+        Problem problem = problemodel.query(stoi(pid));
+        Json::Value datas;
+        datas["message"] = "Accepted";
+        if(Judge::judge(code, problem)==false)
+        {
+            datas["message"] = "Error";
+        }
+        resp->setStatusCode(HttpResponse::k200Ok);
+        resp->setStatusMessage("OK");
+        resp->setContentType("text/html");
+        resp->addHeader("Server", "Muduo");
+        resp->setBody(datas.toStyledString());
     }
 //     if (req.method() == HttpRequest::kGet && req.path() == "/")
 //     {

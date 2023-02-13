@@ -96,7 +96,7 @@
             </div>
             <ul class="mdui-menu mdui-menu-cascade" id="account-menu">
                 <li class="mdui-menu-item">
-                    <a href="logout.html" class="mdui-ripple">退出登录</a>
+                    <a href="/logout.html?username={{username}}" class="mdui-ripple">退出登录</a>
                 </li>
             </ul>
         </div>
@@ -156,12 +156,14 @@
 
             <pre id="code" class="ace_editor" style="min-height:400px">
 <textarea class="ace_text-input">
-#include <cstdio>
+#include <iostream>
+
+using namespace std;
 
 int main()
 {
-
-
+    
+    
     return 0;
 }
 </textarea></pre>
@@ -176,11 +178,14 @@ int main()
                     class="btn btn-primary" value="提交" onclick="run('{{pid}}')">
             </div>
 
+            <br><br>
+            <span style="font-size: 25px;"">代码提交状态：</span>
+            <span id="output" style="color: rgb(68, 157, 68); font-size: 30px;"></span>
+
         </div>
-
-    </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-noconflict/ace.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-noconflict/ext-language_tools.min.js"></script>
 
@@ -195,15 +200,20 @@ int main()
         editor.setTheme("ace/theme/" + theme);
         editor.session.setMode("ace/mode/" + language);
 
-        //字体大小
-        editor.setFontSize(18);
+
+        editor.setFontSize(18);                     // 字体大小
+        editor.getSession().setTabSize(4);          // 制表符长度
+        editor.session.setUseSoftTabs(true);        // 制表符变为对应长度空格
+        editor.getSession().setUseWrapMode(true);   // 代码可折叠
 
         //设置只读（true时只读，用于展示代码）
         editor.setReadOnly(false);
 
-        //自动换行,设置为off关闭
-        editor.setOption("wrap", "free")
+
+        editor.setOption("wrap", "free");           //自动换行,设置为off关闭
         editor.getSession().setUseWrapMode(true);   // 代码可折叠
+        editor.resize();                            // 编辑器自动控制大小
+        editor.setShowPrintMargin(false);           // 设置是否显示边距线
         //启用提示菜单
         ace.require("ace/ext/language_tools");
         editor.setOptions({
@@ -211,6 +221,26 @@ int main()
             enableSnippets: true,
             enableLiveAutocompletion: true
         });
+
+        function run(pid) {
+            var code = editor.getValue()
+            $.ajax({
+                url: "/compile.html?username={{username}}?pid=" + pid,
+                type: "POST",
+                data: {
+                    "code": code
+                },
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                async: false,
+                success: function (data) {
+                    //$("#output").html(ret.message);
+                    var ret =  JSON.parse(data)
+                    document.getElementById('output').innerHTML = ret.message;
+                }
+            });
+            // alert(htmlobj.responseText)
+            //$("#output").html(htmlobj.responseText);
+        }
     </script>
 
 

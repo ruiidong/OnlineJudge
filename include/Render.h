@@ -122,6 +122,7 @@ namespace Render
         dict.SetValue("username", username.c_str());
         dict.SetValue("title",problem.getTitle().c_str());
         dict.SetValue("description",problem.getDescription().c_str());
+        dict.SetValue("pid", to_string(problem.getPid()).c_str());
 
         ctemplate::Template* tpl;
         tpl = ctemplate::Template::GetTemplate(TEMPLATEBASE + "problem.html", ctemplate::DO_NOT_STRIP);
