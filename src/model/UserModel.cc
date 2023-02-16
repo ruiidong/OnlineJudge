@@ -86,6 +86,35 @@ User UserModel::query(const string& username, const string& password)
     return User();
 }
 
+User UserModel::query(const string& username)
+{
+    char sql[1024] = {0};
+    sprintf(sql, "select * from user where username = '%s'", username.c_str());
+
+    MySql mysql;
+    if(mysql.connect())
+    {
+        MYSQL_RES* res = mysql.query(sql);
+        if(res != nullptr)
+        {
+            MYSQL_ROW row = mysql_fetch_row(res);
+            if(row != nullptr)
+            {
+                User user;
+                user.setUid(atoi(row[0]));
+                user.setUsername(row[1]);
+                user.setPassword(row[2]);
+                user.setEmail(row[3]);
+                user.setSubmit(atoi(row[4]));
+                user.setSolved(atoi(row[5]));
+                return user;
+            }
+        }
+    }
+    return User();
+}
+
+
 void UserModel::query(vector<User>& users)
 {
     char sql[1024] = {0};
@@ -111,4 +140,36 @@ void UserModel::query(vector<User>& users)
             }
         }
     }
+}
+
+void UserModel::updateSubmit(User& user)
+{
+    char sql[1024] = {0};
+    sprintf(sql,"update user set submit = %d where uid = %d", user.getSubmit(), user.getUid());
+
+    MySql mysql;
+    if(mysql.connect())
+    {
+        if(mysql.update(sql))
+        {
+            return;
+        }
+    }
+    return;
+}
+
+void UserModel::updateSolved(User& user)
+{
+    char sql[1024] = {0};
+    sprintf(sql,"update user set solved = %d where uid = %d", user.getSolved(), user.getUid());
+
+    MySql mysql;
+    if(mysql.connect())
+    {
+        if(mysql.update(sql))
+        {
+            return;
+        }
+    }
+    return;
 }

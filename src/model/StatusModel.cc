@@ -16,18 +16,31 @@ void StatusModel::query(const string& username, vector<Status>& statuss)
             while ((row = mysql_fetch_row(res)) != nullptr)
             {
                 Status status(
-                    atoi(row[0]),
                     row[1],
                     atoi(row[2]),
                     row[3],
-                    atoi(row[4]),
-                    atoi(row[5]),
-                    row[6],
-                    atoi(row[7]),
-                    row[8]
+                    row[4],
+                    row[5]
                 );
+                status.setSid(atoi(row[0]));
                 statuss.push_back(status);
             }
+        }
+    }
+}
+
+void StatusModel::insert(Status& status)
+{
+    char sql[1024] = {0};
+    sprintf(sql, "insert into status(username,pid,result,language,submittime) values('%s',%d,'%s','%s','%s')",
+                status.getUsername().c_str(), status.getPid(), status.getResult().c_str(), status.getLanguage().c_str(), status.getSubmittime().c_str());
+
+    MySql mysql;
+    if(mysql.connect())
+    {
+        if(mysql.update(sql))
+        {
+            status.setSid(mysql_insert_id(mysql.getConn()));
         }
     }
 }

@@ -74,3 +74,35 @@ Problem ProblemModel::query(int pid)
         }
     }
 }
+
+void ProblemModel::updateSubmit(Problem& problem)
+{
+    char sql[1024] = {0};
+    sprintf(sql,"update problem set submit = %d where pid = %d", problem.getSubmit(), problem.getPid());
+
+    MySql mysql;
+    if(mysql.connect())
+    {
+        if(mysql.update(sql))
+        {
+            return;
+        }
+    }
+    return;
+}
+
+void ProblemModel::updateSolved(Problem& problem)
+{
+    char sql[1024] = {0};
+    sprintf(sql,"update problem set solved = %d where pid = %d", problem.getSolved(), problem.getPid());
+
+    MySql mysql;
+    if(mysql.connect())
+    {
+        if(mysql.update(sql))
+        {
+            return;
+        }
+    }
+    return;
+}

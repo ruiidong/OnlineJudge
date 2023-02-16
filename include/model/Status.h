@@ -7,18 +7,19 @@ using namespace std;
 class Status
 {
 public:
-    Status(int sid, const string& username, int pid, const string result,
-            int memorylimit, int timelimit, const string& language, int length, const string& submittime)
-        : sid_(sid)
-        , username_(username)
+    Status(const string& username, int pid, const string result,
+            const string& language, const string& submittime)
+        : username_(username)
         , pid_(pid)
         , result_(result)
-        , memorylimit_(memorylimit_)
-        , timelimit_(timelimit)
         , language_(language)
-        , length_(length)
         , submittime_(submittime)
     {
+    }
+
+    void setSid(int sid)
+    {
+        sid_ = sid;
     }
 
     int getSid() const
@@ -41,24 +42,14 @@ public:
         return result_;
     }
 
-    int getMemoryLimit() const
+    void setResult(const string& result)
     {
-        return memorylimit_;
-    }
-
-    int getTimeLimit() const
-    {
-        return timelimit_;
+        result_ = result;
     }
 
     string getLanguage() const
     {
         return language_;
-    }
-
-    int getLength() const
-    {
-        return length_;
     }
 
     string getSubmittime() const
@@ -71,9 +62,6 @@ private:
     string username_;
     int pid_;
     string result_;
-    int memorylimit_;
-    int timelimit_;
     string language_;
-    int length_;
     string submittime_;
 };

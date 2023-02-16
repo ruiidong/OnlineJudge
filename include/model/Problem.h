@@ -29,6 +29,14 @@ public:
     {
         return solved_;
     }
+    void setSubmit(int submit)
+    {
+        submit_ = submit;
+    }
+    void setSolved(int solved)
+    {
+        solved_ = solved;
+    }
     string getDescription() const
     {
         return description_;

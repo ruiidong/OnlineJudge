@@ -137,32 +137,32 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         resp->addHeader("Server", "Muduo");
         resp->setBody(html);
     }
-    else if(req.path()=="/category.html")
-    {
-        string username = req.query().substr(10);
+    // else if(req.path()=="/category.html")
+    // {
+    //     string username = req.query().substr(10);
 
-        if(!users.find(username))
-        {
-            resp->setStatusCode(HttpResponse::k302MovedTemporarily);
-            resp->setStatusMessage("OK");
-            resp->setRedirect("/");
-            resp->setContentType("text/html");
-            resp->addHeader("Server", "Muduo");
+    //     if(!users.find(username))
+    //     {
+    //         resp->setStatusCode(HttpResponse::k302MovedTemporarily);
+    //         resp->setStatusMessage("OK");
+    //         resp->setRedirect("/");
+    //         resp->setContentType("text/html");
+    //         resp->addHeader("Server", "Muduo");
 
-            return;
-        }
+    //         return;
+    //     }
 
-        CategoryModel categorymodel;
-        vector<Category> categorys;
-        categorymodel.query(categorys);
-        string html;
-        Render::RenderCategory(html, categorys, username);
-        resp->setStatusCode(HttpResponse::k200Ok);
-        resp->setStatusMessage("OK");
-        resp->setContentType("text/html");
-        resp->addHeader("Server", "Muduo");
-        resp->setBody(html);
-    }
+    //     CategoryModel categorymodel;
+    //     vector<Category> categorys;
+    //     categorymodel.query(categorys);
+    //     string html;
+    //     Render::RenderCategory(html, categorys, username);
+    //     resp->setStatusCode(HttpResponse::k200Ok);
+    //     resp->setStatusMessage("OK");
+    //     resp->setContentType("text/html");
+    //     resp->addHeader("Server", "Muduo");
+    //     resp->setBody(html);
+    // }
     else if(req.path()=="/ranklist.html")
     {
         string username = req.query().substr(10);
@@ -263,17 +263,40 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
         }
 
         string code = req.getData("code");
-        // cout << "----------------------------------------------------" << endl;
-        // cout << code << endl;
-        // cout << "----------------------------------------------------" << endl;
+        
         ProblemModel problemodel;
         Problem problem = problemodel.query(stoi(pid));
+        problem.setSubmit(problem.getSubmit()+1);
+        problemodel.updateSubmit(problem);
+        
+        UserModel usermodel;
+        User user = usermodel.query(username);
+        user.setSubmit(user.getSubmit()+1);
+        usermodel.updateSubmit(user);
+
         Json::Value datas;
         datas["message"] = "Accepted";
+        Status status(username, stoi(pid), "Accepted", "C/C++", Timestamp::now().toString());
         if(Judge::judge(code, problem)==false)
         {
             datas["message"] = "Error";
+            status.setResult("Error");
+            
+            problem.setSolved(problem.getSolved()-1);
+            problemodel.updateSolved(problem);
+
+            user.setSolved(user.getSolved()-1);
+            usermodel.updateSolved(user);
         }
+        
+        problem.setSolved(problem.getSolved()+1);
+        problemodel.updateSolved(problem);
+        
+        user.setSolved(user.getSolved()+1);
+        usermodel.updateSolved(user);
+
+        StatusModel statusmodel;
+        statusmodel.insert(status);
         resp->setStatusCode(HttpResponse::k200Ok);
         resp->setStatusMessage("OK");
         resp->setContentType("text/html");

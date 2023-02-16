@@ -40,8 +40,9 @@ namespace Render
             double odds = 0;
             if(problem.getSubmit()!=0)
             {
-                odds = problem.getSolved()/problem.getSubmit();
+                odds = problem.getSolved()*1.0/problem.getSubmit()*1.0;
             }
+            odds *= 100;
             table_dict->SetValue("odds", (to_string(odds) + "%").c_str());
         }
         
@@ -82,8 +83,9 @@ namespace Render
             double odds = 0;
             if(user.getSubmit()!=0)
             {
-                odds = user.getSolved()/user.getSubmit();
+                odds = user.getSolved()*1.0/user.getSubmit()*1.0;
             }
+            odds *= 100;
             table_dict->SetValue("odds", (to_string(odds) + "%").c_str());
         }
         
@@ -104,10 +106,7 @@ namespace Render
             table_dict->SetValue("username", username);
             table_dict->SetValue("pid", to_string(status.getPid()).c_str());
             table_dict->SetValue("result", status.getResult().c_str());
-            table_dict->SetValue("memorylimit", to_string(status.getMemoryLimit()).c_str());
-            table_dict->SetValue("timelimit", to_string(status.getTimeLimit()).c_str());
             table_dict->SetValue("language", status.getLanguage().c_str());
-            table_dict->SetValue("length", to_string(status.getLength()).c_str());
             table_dict->SetValue("submittime", status.getSubmittime().c_str());
         }
         

@@ -87,7 +87,7 @@
                 mdui-drawer="{target: '#main-drawer', swipe: true}">
                 <i class="mdui-icon material-icons">menu</i>
             </a>
-            <a class="mdui-typo-title" href="./">demo</a>
+            <a class="mdui-typo-title" href="./">在线评判系统</a>
             <div class="mdui-toolbar-spacer"></div>
             <div class="mdui-btn" mdui-tooltip="{content: '账户'}"
                 mdui-menu="{target: '#account-menu', position: 'bottom', fixed: true}">
@@ -112,10 +112,10 @@
                 <i class="mdui-list-item-icon mdui-icon material-icons">book</i>
                 <div class="mdui-list-item-content">题目</div>
             </a>
-            <a class="mdui-list-item mdui-ripple " href="/category.html?username={{username}}">
+            <!-- <a class="mdui-list-item mdui-ripple " href="/category.html?username={{username}}">
                 <i class="mdui-list-item-icon mdui-icon material-icons">apps</i>
                 <div class="mdui-list-item-content">分类</div>
-            </a>
+            </a> -->
 
             <a class="mdui-list-item mdui-ripple " href="/ranklist.html?username={{username}}">
                 <i class="mdui-list-item-icon mdui-icon material-icons">equalizer</i>
@@ -145,7 +145,7 @@
                     <h3>题目描述</h3>
                 </div>
 
-                <pre>{{description}}</pre>
+                <b style="font-size: 23px;">{{description}}</b>
 
             </div>
 

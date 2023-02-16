@@ -10,4 +10,5 @@ class StatusModel
 {
 public:
     void query(const string& username, vector<Status>& status);
+    void insert(Status& status);
 };
