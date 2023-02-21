@@ -151,10 +151,14 @@
 
 
 
+            <select name="language" style="height: 40px; width: 220px; border-radius: 4px;" id="id_language" onchange="func(this.value)">
+                <option value="c/c++" selected="">C++</option>
+              
+                <option value="python">Python</option>  
+            </select>
 
 
-
-            <pre id="code" class="ace_editor" style="min-height:400px">
+            <div  id="editor0" style="min-height:400px"><pre id="code" class="ace_editor" style="min-height:400px">
 <textarea class="ace_text-input">
 #include <iostream>
 
@@ -165,10 +169,12 @@ int main()
     
     
     return 0;
-}
-</textarea></pre>
+}</textarea></pre></div>
 
 
+            <div  id="editor1" style="min-height:400px"><pre id="code" class="ace_editor" style="min-height:400px">
+<textarea class="ace_text-input">
+</textarea></pre></div>
 
 
             <hr style="border-top: 1px solid #cfcfcf88; margin: 5px 15px;">
@@ -179,7 +185,7 @@ int main()
             </div>
 
             <br><br>
-            <span style="font-size: 25px;"">代码提交状态：</span>
+            <span style="font-size: 25px;">代码提交状态：</span>
             <span id="output" style="color: rgb(68, 157, 68); font-size: 30px;"></span>
 
         </div>
@@ -191,44 +197,85 @@ int main()
 
 
     <script>
-        //初始化对象
-        editor = ace.edit("code");
+        var edit;
+        var code_type;
+        cpp();
 
-        //设置风格和语言（更多风格和语言，请到github上相应目录查看）
-        theme = "clouds"
-        language = "c_cpp"
-        editor.setTheme("ace/theme/" + theme);
-        editor.session.setMode("ace/mode/" + language);
+        function func(val)
+        {
+            if(val=="c/c++")
+            {
+                cpp();
+            }
+            else if(val=="python")
+            {
+                python();
+            }
+        }
 
+        function cpp()
+        {
+            code_type = "c/c++";
+            var ui = document.getElementById("editor1");
+            ui.style.display="none"    //隐藏python代码窗口
+            ui = document.getElementById("editor0");
+            ui.style.display="";       //显示cpp代码窗口
+            var editor = ace.edit("editor0");
+            edit = editor;
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true
+            });
+            editor.setTheme("ace/theme/terminal");      // 主题
+            editor.session.setMode("ace/mode/c_cpp");   // 语言
+            editor.setFontSize(18);                     // 字体大小
+            editor.getSession().setTabSize(4);          // 制表符长度
+            editor.session.setUseSoftTabs(true);        // 制表符变为对应长度空格
+            editor.setOption("wrap", "free")            // 自动换行
+            ace.require("ace/ext/language_tools");      // 启动提示菜单
+            editor.getSession().setUseWrapMode(true);   // 代码可折叠
+            editor.resize();                            // 编辑器自动控制大小
+            //editor.setReadOnly(true);                   // 编辑器只读模式
+            editor.setShowPrintMargin(false);           // 设置是否显示边距线
+        }
 
-        editor.setFontSize(18);                     // 字体大小
-        editor.getSession().setTabSize(4);          // 制表符长度
-        editor.session.setUseSoftTabs(true);        // 制表符变为对应长度空格
-        editor.getSession().setUseWrapMode(true);   // 代码可折叠
+        function python()
+        {
+            code_type = "python";
+            var ui = document.getElementById("editor0");
+            ui.style.display="none";     //隐藏cpp代码窗口
+            ui = document.getElementById("editor1");
+            ui.style.display="";        //显示python代码窗口
+            var editor = ace.edit("editor1");
+            edit = editor;
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true
+            });
+            editor.setTheme("ace/theme/terminal");      // 主题
+            editor.session.setMode("ace/mode/python");   // 语言
+            editor.setFontSize(18);                     // 字体大小
+            editor.getSession().setTabSize(4);          // 制表符长度
+            editor.session.setUseSoftTabs(true);        // 制表符变为对应长度空格
+            editor.setOption("wrap", "free")            // 自动换行
+            ace.require("ace/ext/language_tools");      // 启动提示菜单
+            editor.getSession().setUseWrapMode(true);   // 代码可折叠
+            editor.resize();                            // 编辑器自动控制大小
+            //editor.setReadOnly(true);                   // 编辑器只读模式
+            editor.setShowPrintMargin(false);           // 设置是否显示边距线
+        }
 
-        //设置只读（true时只读，用于展示代码）
-        editor.setReadOnly(false);
-
-
-        editor.setOption("wrap", "free");           //自动换行,设置为off关闭
-        editor.getSession().setUseWrapMode(true);   // 代码可折叠
-        editor.resize();                            // 编辑器自动控制大小
-        editor.setShowPrintMargin(false);           // 设置是否显示边距线
-        //启用提示菜单
-        ace.require("ace/ext/language_tools");
-        editor.setOptions({
-            enableBasicAutocompletion: true,
-            enableSnippets: true,
-            enableLiveAutocompletion: true
-        });
 
         function run(pid) {
-            var code = editor.getValue()
+            var code = edit.getValue()
             $.ajax({
                 url: "/compile.html?username={{username}}?pid=" + pid,
                 type: "POST",
                 data: {
-                    "code": code
+                    "code": code,
+                    "code_type": code_type
                 },
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 async: false,

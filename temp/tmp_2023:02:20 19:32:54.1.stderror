@@ -1,0 +1,4 @@
+  File "../temp/tmp_2023:02:20 19:32:54.1.py", line 3
+    using namespace std;
+                  ^
+SyntaxError: invalid syntax

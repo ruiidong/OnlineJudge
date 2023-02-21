@@ -54,6 +54,7 @@
         "string": "cpp",
         "condition_variable": "cpp",
         "random": "cpp",
-        "unordered_set": "cpp"
+        "unordered_set": "cpp",
+        "queue": "cpp"
     }
 }
