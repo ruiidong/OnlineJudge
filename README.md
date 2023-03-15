@@ -32,5 +32,8 @@ OnlineJudge
 	├── README.md 项目描述文件
 	├── sample 题目样例
 	├── src 源文件
+	│   ├── db 数据库连接
+	│   ├── model ORM
+	│   └── tinymuduo 根据Muduo网络库改写的HTTP服务器
 	├── temp 临时文件
 	└── template 网页html模板
