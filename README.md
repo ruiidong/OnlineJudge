@@ -24,6 +24,7 @@ OnlineJudge
 
 ## 目录结构描述
 ├── bin 可执行文件
+├── build 中间文件
 ├── CMakeLists.txt 编译配置文件
 ├── include 头文件
 ├── lib 库文件
