@@ -7,20 +7,20 @@ OnlineJudge
 
 ## 部署步骤
 1. 克隆项目到本地
-        git clone github.com/ruiidong/OnlineJudge.git
+	git clone github.com/ruiidong/OnlineJudge.git
 
 2. 进入项目目录
-		cd OnlineJudge
+	cd OnlineJudge
 
 3. 生成makefile文件
-		cmake .
+	cmake .
 
 4. 生成可执行文件
-		make
+	make
 
 5. 启动OnlineJudge
-		cd bin
-		./OnlineJudge
+	cd bin
+	./OnlineJudge
 
 ## 目录结构描述
 	├── bin 可执行文件

@@ -1,0 +1,147 @@
+[
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/main.cc.o -c /home/lrd/OnlineJudge/src/main.cc",
+  "file": "/home/lrd/OnlineJudge/src/main.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/db/Connection.cc.o -c /home/lrd/OnlineJudge/src/db/Connection.cc",
+  "file": "/home/lrd/OnlineJudge/src/db/Connection.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/db/ConnectionPool.cc.o -c /home/lrd/OnlineJudge/src/db/ConnectionPool.cc",
+  "file": "/home/lrd/OnlineJudge/src/db/ConnectionPool.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/db/db.cc.o -c /home/lrd/OnlineJudge/src/db/db.cc",
+  "file": "/home/lrd/OnlineJudge/src/db/db.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/model/CategoryModel.cc.o -c /home/lrd/OnlineJudge/src/model/CategoryModel.cc",
+  "file": "/home/lrd/OnlineJudge/src/model/CategoryModel.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/model/ProblemModel.cc.o -c /home/lrd/OnlineJudge/src/model/ProblemModel.cc",
+  "file": "/home/lrd/OnlineJudge/src/model/ProblemModel.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/model/StatusModel.cc.o -c /home/lrd/OnlineJudge/src/model/StatusModel.cc",
+  "file": "/home/lrd/OnlineJudge/src/model/StatusModel.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/model/UserModel.cc.o -c /home/lrd/OnlineJudge/src/model/UserModel.cc",
+  "file": "/home/lrd/OnlineJudge/src/model/UserModel.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/base/CurrentThread.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/base/CurrentThread.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/base/CurrentThread.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/base/FileUtil.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/base/FileUtil.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/base/FileUtil.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/base/Logging.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/base/Logging.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/base/Logging.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/base/Thread.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/base/Thread.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/base/Thread.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/base/Timestamp.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/base/Timestamp.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/base/Timestamp.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/Acceptor.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/Acceptor.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/Acceptor.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/Buffer.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/Buffer.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/Buffer.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/Channel.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/Channel.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/Channel.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/DefaultPoller.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/DefaultPoller.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/DefaultPoller.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/EPollPoller.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/EPollPoller.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/EPollPoller.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/EventLoop.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/EventLoop.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/EventLoop.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/EventLoopThread.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/EventLoopThread.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/EventLoopThread.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/EventLoopThreadPool.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/EventLoopThreadPool.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/EventLoopThreadPool.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/HttpContext.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/HttpContext.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/HttpContext.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/HttpResponse.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/HttpResponse.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/HttpResponse.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/HttpServer.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/HttpServer.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/HttpServer.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/InetAddress.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/InetAddress.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/InetAddress.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/Poller.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/Poller.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/Poller.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/Socket.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/Socket.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/Socket.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/TcpConnection.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/TcpConnection.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/TcpConnection.cc"
+},
+{
+  "directory": "/home/lrd/OnlineJudge/build",
+  "command": "/usr/bin/g++  -I/home/lrd/OnlineJudge/include  -g -std=c++11 -g -o CMakeFiles/OnlineJudge.dir/src/tinymuduo/net/TcpServer.cc.o -c /home/lrd/OnlineJudge/src/tinymuduo/net/TcpServer.cc",
+  "file": "/home/lrd/OnlineJudge/src/tinymuduo/net/TcpServer.cc"
+}
+]

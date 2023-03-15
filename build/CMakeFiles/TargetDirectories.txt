@@ -1,0 +1,3 @@
+/home/lrd/OnlineJudge/build/CMakeFiles/OnlineJudge.dir
+/home/lrd/OnlineJudge/build/CMakeFiles/edit_cache.dir
+/home/lrd/OnlineJudge/build/CMakeFiles/rebuild_cache.dir
