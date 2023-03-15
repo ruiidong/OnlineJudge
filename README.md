@@ -19,7 +19,7 @@ OnlineJudge
 	make
 
 5. 启动OnlineJudge
-	cd bin
+		cd bin
 	./OnlineJudge
 
 ## 目录结构描述
