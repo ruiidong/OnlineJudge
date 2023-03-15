@@ -1,12 +1,35 @@
-# OnlineJudge
-C++实现的在线判题系统
+OnlineJudge
+===========================
 
----
+## 环境依赖
+1. jsoncpp
+2. ctemplate
 
+## 部署步骤
+1. 克隆项目到本地
+        git clone github.com/ruiidong/OnlineJudge.git
 
-# 总结
-通过Online Judge项目能学习到什么？  
-1、C++  
-2、网络编程  
-3、数据库  
-4、Linux系统编程
+2. 进入项目目录
+		cd OnlineJudge
+
+3. 生成makefile文件
+		cmake .
+
+4. 生成可执行文件
+		make
+
+5. 启动OnlineJudge
+		cd bin
+		./OnlineJudge
+
+## 目录结构描述
+├── bin 可执行文件
+├── CMakeLists.txt 编译配置文件
+├── include 头文件
+├── lib 库文件
+├── mysql.ini 数据库配置文件
+├── README.md 项目描述文件
+├── sample 题目样例
+├── src 源文件
+├── temp 临时文件
+└── template 网页html模板
