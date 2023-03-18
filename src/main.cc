@@ -20,10 +20,13 @@ Users users;
 int main()
 {
     EventLoop loop;
-    InetAddress addr("192.168.230.152",8000);
-    HttpServer server(&loop,addr,"dummy");
-    //server.setHttpCallback(onRequest);
-    server.post("/login.html",[](const HttpRequest &req, HttpResponse *resp)->void{
+    InetAddress addr("192.168.230.152",8000);           //ip地址、端口号
+    HttpServer server(&loop,addr,"dummy");              //创建服务器对象
+    server.setThreadNum(3);                             //线程数量
+    server.setBaseDir("../template");                   //服务器根目录
+
+                                    //lambda表达式
+    server.post("/login.html",[](const HttpRequest &req, HttpResponse *resp)->void{         //post请求
         string username = req.getData("username");
         string password = req.getData("password");
         Json::Value datas;
@@ -46,7 +49,8 @@ int main()
         resp->addHeader("Server", "Muduo");
         resp->setBody(datas.toStyledString());
     });
-    server.post("/register.html",[](const HttpRequest &req, HttpResponse *resp)->void{
+
+    server.post("/register.html",[](const HttpRequest &req, HttpResponse *resp)->void{          
         string username = req.getData("username");
         string password = req.getData("password");
         string email = req.getData("email");
@@ -70,7 +74,8 @@ int main()
         resp->addHeader("Server", "Muduo");
         resp->setBody(datas.toStyledString());
     });
-    server.get("/logout.html",[](const HttpRequest &req, HttpResponse *resp)->void{
+
+    server.get("/logout.html",[](const HttpRequest &req, HttpResponse *resp)->void{             //get请求
         string username = req.query().substr(10);
         if(!users.find(username))
         {
@@ -91,6 +96,7 @@ int main()
         resp->setContentType("text/html");
         resp->addHeader("Server", "Muduo"); 
     });
+
     server.get("/user.html",[](const HttpRequest &req, HttpResponse *resp)->void{
         string username = req.query().substr(10);
 
@@ -113,6 +119,7 @@ int main()
         resp->addHeader("Server", "Muduo");
         resp->setBody(html);
     });
+
     server.get("/problemset.html",[](const HttpRequest &req, HttpResponse *resp)->void{
         string username = req.query().substr(10);
 
@@ -138,6 +145,7 @@ int main()
         resp->addHeader("Server", "Muduo");
         resp->setBody(html);
     });
+
     server.get("/ranklist.html",[](const HttpRequest &req, HttpResponse *resp)->void{
         string username = req.query().substr(10);
 
@@ -163,6 +171,7 @@ int main()
         resp->addHeader("Server", "Muduo");
         resp->setBody(html);
     });
+
     server.get("/status.html",[](const HttpRequest &req, HttpResponse *resp)->void{
         string username = req.query().substr(10);
 
@@ -188,6 +197,7 @@ int main()
         resp->addHeader("Server", "Muduo");
         resp->setBody(html);
     });
+
     server.get("/problem.html",[](const HttpRequest &req, HttpResponse *resp)->void{
         string usernamepid = req.query().substr(10);
         int idx = usernamepid.find('?');
@@ -215,6 +225,7 @@ int main()
         resp->addHeader("Server", "Muduo");
         resp->setBody(html);
     });
+
     server.post("/compile.html",[](const HttpRequest &req, HttpResponse *resp)->void{
         string usernamepid = req.query().substr(10);
         int idx = usernamepid.find('?');
@@ -249,29 +260,7 @@ int main()
         datas["message"] = "Accepted";
         Status status(username, stoi(pid), "Accepted", codeType, Timestamp::now().toString());
 
-        // Judge* judge = nullptr;
-        // if(codeType == "c/c++")
-        // {
-        //     judge = new CppJudge;
-        // }
-        // else if(codeType == "python")
-        // {
-        //     judge = new PyJudge;
-        // }
-        // if(judge->judge(code, problem)==false)
-        // {
-        //     datas["message"] = "Error";
-        //     status.setResult("Error");
-            
-        //     problem.setSolved(problem.getSolved()-1);
-        //     problemodel.updateSolved(problem);
-
-        //     user.setSolved(user.getSolved()-1);
-        //     usermodel.updateSolved(user);
-        // }
-
-        std::unique_ptr<JudgeFactory> judgeFactory(new JudgeFactory());
-        std::unique_ptr<Judge> judge(judgeFactory->createJudge(codeType));
+        std::unique_ptr<Judge> judge(JudgeFactory::createJudge(codeType));
         if(judge->judge(code, problem)==false)
         {
             datas["message"] = "Error";
@@ -299,10 +288,9 @@ int main()
         resp->addHeader("Server", "Muduo");
         resp->setBody(datas.toStyledString());
     });
-    server.setThreadNum(3);
-    server.setBaseDir("../template");
-    server.start();
-    loop.loop();
+
+    server.start();             //启动服务器
+    loop.loop();                
 
     return 0;
 }

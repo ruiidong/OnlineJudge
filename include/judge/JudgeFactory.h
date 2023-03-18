@@ -9,7 +9,7 @@ class Judge;
 class JudgeFactory
 {
 public:
-    Judge* createJudge(const string& codeType)
+    static Judge* createJudge(const string& codeType)
     {
         if(codeType == "c/c++")
         {
@@ -19,9 +19,6 @@ public:
         {
             return new PyJudge;
         }
-        else
-        {
-            return nullptr;
-        }
+        return nullptr;
     }
 };
