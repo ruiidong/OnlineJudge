@@ -1,0 +1,25 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+
+    "configurations": [
+        {
+            "name": "(gdb) 启动", //配置名称，显示在配置下拉菜单中
+            "type": "cppdbg", //配置类型
+            "request": "launch", //请求配置类型，可以是启动或者是附加
+            "miDebuggerServerAddress": "127.0.0.1:1234",
+            "program": "${workspaceFolder}/bin/OnlineJudge", //程序可执行文件的完整路径，${workspaceFolder}表示远程连接的初始路径
+            // "args": ["192.168.230.152","8080"], //传递给程序的命令行参数
+            "stopAtEntry": false,//可选参数，如果为true,调试程序应该在入口（main）处停止
+            "cwd": "${workspaceFolder}", //目标的工作目录
+            "environment": [], //表示要预设的环境变量
+            "externalConsole": false,//如果为true，则为调试对象启动控制台
+            "logging": {
+                "engineLogging": false
+            },
+            "MIMode": "gdb",
+        }
+    ]
+}

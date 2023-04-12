@@ -27,7 +27,7 @@ void HttpResponse::appendToBuffer(Buffer* output) const
         output->append(header.second);
         output->append("\r\n");
     }
-
+    
     output->append("\r\n");
     output->append(body_);
 }

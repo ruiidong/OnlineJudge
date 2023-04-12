@@ -45,7 +45,9 @@ MYSQL_RES *Connection::query(const string &sql)
     if(mysql_query(conn_, sql.c_str()))
     {
         LOG_INFO("查询失败");
+        cout << "---------------------------------------------------------------------------------" << endl;
         LOG_INFO("mysql errno : %s", mysql_error(conn_));
+        cout << "---------------------------------------------------------------------------------" << endl;
     }
     return mysql_use_result(conn_);
 }

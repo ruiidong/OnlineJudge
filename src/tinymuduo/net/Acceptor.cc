@@ -38,10 +38,14 @@ void Acceptor::listen()
     acceptChannel_.enableReading();
 }
 
+int maxfd = 0;
+
 void Acceptor::handleRead()
 {
     InetAddress peerAddr;
     int connfd = acceptSocket_.accept(&peerAddr);
+    maxfd = max(maxfd,connfd);
+    LOG_INFO("-------------------------------maxfd:%d-------------------------------\n",maxfd);
     if(connfd >= 0)
     {
         if(newConnectionCallback_)

@@ -17,13 +17,27 @@
 
 Users users;
 
-int main()
+int main(int argc,char** argv)
 {
+    if (argc < 3)
+    {
+        cerr << "command invalid! example: ./OnlineJudge 127.0.0.1 8000" << endl;
+        exit(-1);
+    }
+
     EventLoop loop;
-    InetAddress addr("192.168.230.152",8000);           //ip地址、端口号
+    uint16_t port = atoi(argv[2]);
+    InetAddress addr(argv[1],port);                     //ip地址、端口号
     HttpServer server(&loop,addr,"dummy");              //创建服务器对象
     server.setThreadNum(3);                             //线程数量
     server.setBaseDir("../template");                   //服务器根目录
+
+    // EventLoop loop;
+    // uint16_t port = 8080;
+    // InetAddress addr("192.168.230.152",port);           //ip地址、端口号
+    // HttpServer server(&loop,addr,"dummy");              //创建服务器对象
+    // server.setThreadNum(3);                             //线程数量
+    // server.setBaseDir("../template");                   //服务器根目录
 
                                     //lambda表达式
     server.post("/login.html",[](const HttpRequest &req, HttpResponse *resp)->void{         //post请求
